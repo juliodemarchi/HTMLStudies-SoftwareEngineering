@@ -1,0 +1,2184 @@
+/*
+  ╔══════════════════════════════════════════════════════════════╗
+  ║   STYLE.CSS — JULIO CESAR DEMARCHI JUNIOR                   ║
+  ║   Portfólio — Engenheiro de Software Júnior                 ║
+  ║   Arquivo: css/style.css                                    ║
+  ╚══════════════════════════════════════════════════════════════╝
+
+  ORGANIZAÇÃO DO ARQUIVO:
+  1. Variáveis CSS (Custom Properties)
+  2. Reset e Base
+  3. Tipografia
+  4. Layout Utilitário
+  5. Header e Navegação
+  6. Hero
+  7. Seções Gerais
+  8. Sobre
+  9. Habilidades + Tabela
+  10. Projetos
+  11. Experiência (Timeline)
+  12. Contato + Formulário
+  13. Footer
+  14. Animações
+  15. Responsividade (Media Queries)
+  16. Acessibilidade (prefers-reduced-motion, :focus)
+*/
+
+
+/* ════════════════════════════════════════════════
+   1. VARIÁVEIS CSS (Custom Properties)
+   ════════════════════════════════════════════════
+   ▸ O QUE SÃO: Propriedades reutilizáveis definidas na cascata.
+   ▸ SINTAXE: --nome-da-variavel: valor;
+   ▸ USO: var(--nome-da-variavel)
+   ▸ :root: pseudo-classe do elemento raiz <html> — variáveis aqui
+     ficam disponíveis em TODO o documento (escopo global).
+   ▸ VANTAGEM: Mudar uma cor em um lugar reflete em toda a página.
+   ▸ DIFERENÇA de variáveis SASS ($var): CSS variables são em runtime
+     (podem ser alteradas por JavaScript ou media queries).
+*/
+:root {
+  /* Paleta de cores */
+  --cor-bg:          #0b0c10;      /* Fundo principal — quase preto */
+  --cor-superficie:  #13151a;      /* Superfície de cards */
+  --cor-superficie-2:#1a1d24;      /* Superfície elevada */
+  --cor-borda:       #252830;      /* Bordas sutis */
+  --cor-borda-forte: #353840;      /* Bordas com mais contraste */
+
+  --cor-texto:       #e8eaf0;      /* Texto principal — branco suave */
+  --cor-texto-2:     #9aa0b0;      /* Texto secundário — cinza médio */
+  --cor-texto-3:     #5a6070;      /* Texto terciário — cinza escuro */
+
+  --cor-acento:      #4fc3f7;      /* Azul elétrico — acento principal */
+  --cor-acento-dark: #0288d1;      /* Azul mais escuro (hover) */
+  --cor-acento-glow: rgba(79, 195, 247, 0.15); /* Brilho do acento */
+
+  --cor-verde:       #69f0ae;      /* Verde para status disponível */
+  --cor-vermelho:    #ff5252;      /* Vermelho para erros */
+  --cor-amarelo:     #ffd740;      /* Amarelo para warnings */
+
+  /* Gradientes */
+  --gradiente-hero: linear-gradient(135deg, #0b0c10 0%, #13151a 50%, #0d1117 100%);
+  --gradiente-acento: linear-gradient(90deg, var(--cor-acento), #7c4dff);
+
+  /* Tipografia */
+  --fonte-display: 'Syne', Georgia, serif;
+  --fonte-corpo:   'Crimson Pro', Georgia, serif;
+  --fonte-mono:    'JetBrains Mono', 'Courier New', monospace;
+
+  /* Espaçamento */
+  --espaco-xs:  0.25rem;  /*  4px */
+  --espaco-sm:  0.5rem;   /*  8px */
+  --espaco-md:  1rem;     /* 16px */
+  --espaco-lg:  1.5rem;   /* 24px */
+  --espaco-xl:  2rem;     /* 32px */
+  --espaco-2xl: 3rem;     /* 48px */
+  --espaco-3xl: 5rem;     /* 80px */
+
+  /* Bordas */
+  --raio-sm:  4px;
+  --raio-md:  8px;
+  --raio-lg:  12px;
+  --raio-full: 9999px;   /* Completamente arredondado (pílula) */
+
+  /* Sombras */
+  --sombra-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --sombra-md: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --sombra-lg: 0 8px 48px rgba(0, 0, 0, 0.5);
+  --sombra-acento: 0 0 20px rgba(79, 195, 247, 0.2);
+
+  /* Transições */
+  --trans-rapida: 0.15s ease;
+  --trans-media:  0.25s ease;
+  --trans-lenta:  0.4s ease;
+
+  /* Layout */
+  --largura-max: 1100px;
+  --header-altura: 70px;
+}
+
+
+/* ════════════════════════════════════════════════
+   2. RESET E BASE
+   ════════════════════════════════════════════════
+   ▸ O QUE É: Normalização dos estilos padrão dos navegadores.
+   ▸ POR QUE: Chrome, Firefox, Safari têm estilos padrão diferentes.
+   ▸ ALTERNATIVA POPULAR: normalize.css (preserva estilos úteis) vs
+     reset.css (remove TUDO). Esta abordagem é um híbrido moderno.
+*/
+
+/* Box-sizing universal
+   ▸ border-box: padding e border são INCLUÍDOS na largura/altura.
+   ▸ Sem isso (content-box padrão): padding SOMA à largura.
+     Ex: width:200px + padding:20px = 240px total (confuso!)
+   ▸ Com border-box: width:200px inclui o padding (intuitivo).
+   ▸ *::before e *::after: pseudo-elementos também recebem o reset. */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Rolagem suave para links âncora */
+  scroll-behavior: smooth;
+  /*
+    ▸ scroll-behavior: smooth
+    O QUE FAZ: Anima a rolagem ao clicar em links âncora (#secao).
+    ACESSIBILIDADE: Pode ser problemático para pessoas com vestibular
+      disorders. A regra prefers-reduced-motion no final do CSS
+      desativa isso para quem configurou o sistema operacional.
+  */
+
+  /* Previne overflow horizontal indesejado */
+  overflow-x: hidden;
+
+  /* Tamanho de fonte base para cálculos rem */
+  font-size: 16px;
+  /*
+    ▸ UNIDADE rem
+    Relative to Root EM — relativa ao font-size do elemento <html>.
+    1rem = 16px (padrão browser), 1.5rem = 24px, 0.875rem = 14px.
+    VANTAGEM sobre px: Respeita a preferência de font-size do usuário
+    no browser (acessibilidade). Usuários que aumentam a fonte do
+    browser veem tudo proporcionalmente maior.
+    DIFERENÇA de em: em é relativo ao elemento PAI (aninhamento confuso).
+    rem é sempre relativo à raiz (previsível).
+  */
+}
+
+body {
+  font-family: var(--fonte-corpo);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  /*
+    ▸ line-height: 1.7
+    Espaçamento entre linhas — 1.7x o font-size atual.
+    WCAG 1.4.12: Recomenda mínimo de 1.5 para legibilidade.
+    Valor sem unidade (1.7) é relativo ao font-size filho — correto!
+    COM unidade (1.7rem) seria fixo — poderia não escalar com a fonte.
+  */
+  color: var(--cor-texto);
+  background-color: var(--cor-bg);
+  min-height: 100vh;
+  /*
+    ▸ min-height: 100vh
+    100 viewport height — 100% da altura visível da tela.
+    min-height (não height) para que o body cresça com conteúdo.
+  */
+  overflow-x: hidden;
+
+  /* Suavização de fonte — melhora renderização de fontes leves */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /*
+    ▸ font-smoothing
+    Controla como o browser renderiza bordas de glifos.
+    antialiased → bordas mais suaves (preferível para fontes leves em fundos escuros)
+    subpixel-antialiased → usa subpixels do monitor (padrão, melhor em fundos claros)
+    -webkit- e -moz-: Prefixos de vendor — propriedade não padronizada,
+    mas amplamente suportada.
+  */
+}
+
+/* Remove decoração de links por padrão — estilo aplicado por classe */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--trans-media), opacity var(--trans-media);
+}
+
+/* Remove estilo padrão de listas quando usadas em navs/layouts */
+ul, ol {
+  list-style: none;
+}
+/*
+  ▸ NOTA IMPORTANTE: Remover list-style via CSS remove a semântica
+    de lista em Safari + VoiceOver. Compensamos adicionando role="list"
+    no HTML (veja index.html). CSS e ARIA trabalham juntos.
+*/
+
+/* Imagens responsivas por padrão */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  /*
+    ▸ max-width: 100%
+    Imagem nunca ultrapassa o container pai.
+    Fundamental para responsividade.
+
+    ▸ height: auto
+    Mantém a proporção original ao redimensionar.
+    Com max-width mas sem height:auto, a imagem esticaria.
+
+    ▸ display: block
+    Imagens são inline por padrão — isso cria um pequeno espaço
+    abaixo delas (space reserved for descenders em text).
+    display:block remove este espaço fantasma.
+  */
+}
+
+/* Herança de fonte para inputs (browsers não herdam por padrão) */
+input, textarea, select, button {
+  font-family: inherit;
+  font-size: inherit;
+  /*
+    ▸ POR QUE NECESSÁRIO: Elementos de formulário usam a fonte do
+    sistema operacional por padrão — não herdam a fonte do body.
+    Este reset garante consistência visual.
+  */
+}
+
+/* Foco visível — NUNCA remover sem alternativa */
+:focus-visible {
+  outline: 2px solid var(--cor-acento);
+  outline-offset: 3px;
+  border-radius: var(--raio-sm);
+  /*
+    ▸ :focus-visible (vs :focus)
+    :focus → aplica a QUALQUER foco (mouse, teclado, programático)
+    :focus-visible → aplica apenas quando o foco É visualmente relevante
+      (teclado/assistive technology). Mouse clicks geralmente não precisam
+      de outline visível.
+    WCAG 2.4.7: Foco visível é critério de nível AA — obrigatório.
+    NUNCA: outline: none sem fornecer alternativa visual equivalente.
+  */
+}
+
+/* Seleção de texto customizada */
+::selection {
+  background-color: var(--cor-acento);
+  color: var(--cor-bg);
+  /*
+    ▸ ::selection
+    Estilo do texto quando o usuário seleciona (arrasta o mouse).
+    Cor de fundo + cor do texto para garantir contraste.
+  */
+}
+
+
+/* ════════════════════════════════════════════════
+   3. TIPOGRAFIA
+   ════════════════════════════════════════════════ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--fonte-display);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--cor-texto);
+}
+
+/* Escala tipográfica modular (Major Third — fator 1.25) */
+h1 { font-size: clamp(2.4rem, 5vw, 4rem); }
+h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); }
+h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
+h4 { font-size: 1.2rem; }
+h5 { font-size: 1rem; }
+h6 { font-size: 0.875rem; }
+/*
+  ▸ FUNÇÃO clamp(mínimo, preferido, máximo)
+  O QUE FAZ: Valor fluido entre mínimo e máximo.
+  clamp(2.4rem, 5vw, 4rem):
+    → Em telas pequenas: nunca menor que 2.4rem
+    → Em telas médias: 5% da largura da viewport
+    → Em telas grandes: nunca maior que 4rem
+  RESULTADO: Tipografia responsiva SEM media queries!
+  vw = viewport width (1vw = 1% da largura da viewport)
+*/
+
+p {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--cor-texto-2);
+  margin-bottom: var(--espaco-md);
+}
+
+p:last-child {
+  margin-bottom: 0;
+  /*
+    ▸ :last-child — "Lobotomized Owl" pattern moderno
+    Remove a margin inferior do último <p> de um bloco.
+    Evita espaço extra no final de containers.
+    Técnica limpa: aplica margin nos filhos, exceto o último.
+  */
+}
+
+/* Código inline */
+code {
+  font-family: var(--fonte-mono);
+  font-size: 0.875em;
+  /*
+    ▸ 0.875em (EM, não REM)
+    Em herança: 0.875 × font-size do elemento pai.
+    Código inline dentro de <p> fica proporcionalmente menor.
+  */
+  background: var(--cor-superficie-2);
+  color: var(--cor-acento);
+  padding: 0.1em 0.4em;
+  border-radius: var(--raio-sm);
+  border: 1px solid var(--cor-borda);
+}
+
+/* Abreviações */
+abbr[title] {
+  text-decoration: underline dotted;
+  cursor: help;
+  /*
+    ▸ cursor: help
+    Cursor de interrogação ao passar o mouse — indica que há
+    informação adicional no tooltip (atributo title).
+  */
+}
+
+
+/* ════════════════════════════════════════════════
+   4. LAYOUT UTILITÁRIO
+   ════════════════════════════════════════════════ */
+
+/* Container centralizado com largura máxima */
+.container {
+  width: 100%;
+  max-width: var(--largura-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--espaco-xl);
+  padding-right: var(--espaco-xl);
+  /*
+    ▸ margin: auto
+    Com width definido, margin:auto centraliza horizontalmente.
+    margin-left: auto + margin-right: auto = centralizado.
+    max-width: não ultrapassa 1100px em telas grandes.
+  */
+}
+
+/* Botões base */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espaco-sm);
+  padding: 0.75rem 1.5rem;
+  font-family: var(--fonte-mono);
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: var(--raio-md);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all var(--trans-media);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  /*
+    ▸ display: inline-flex
+    Comportamento flex para alinhamento interno (ícone + texto),
+    mas se comporta como inline externamente (não ocupa linha inteira).
+
+    ▸ white-space: nowrap
+    Impede que o texto do botão quebre em múltiplas linhas.
+
+    ▸ overflow: hidden
+    Necessário para o efeito ripple (::after) funcionar.
+  */
+}
+
+.btn-primario {
+  background: var(--cor-acento);
+  color: var(--cor-bg);
+  border-color: var(--cor-acento);
+}
+
+.btn-primario:hover,
+.btn-primario:focus-visible {
+  background: var(--cor-acento-dark);
+  border-color: var(--cor-acento-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-acento);
+  /*
+    ▸ transform: translateY(-2px)
+    Move o elemento 2px para cima no hover.
+    VANTAGEM sobre top/margin: transform usa a GPU (compositor thread)
+    — não causa reflow/repaint do layout. Muito mais performático.
+    Cria sensação de "levantamento" do botão.
+  */
+}
+
+.btn-secundario {
+  background: transparent;
+  color: var(--cor-acento);
+  border-color: var(--cor-acento);
+}
+
+.btn-secundario:hover,
+.btn-secundario:focus-visible {
+  background: var(--cor-acento-glow);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--cor-texto-2);
+  border-color: var(--cor-borda-forte);
+}
+
+.btn-ghost:hover,
+.btn-ghost:focus-visible {
+  color: var(--cor-texto);
+  border-color: var(--cor-texto-2);
+  transform: translateY(-2px);
+}
+
+/* Tags de tecnologia */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  font-family: var(--fonte-mono);
+  font-size: 0.75rem;
+  border-radius: var(--raio-full);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+
+.tag-html   { background: rgba(255, 87, 34, 0.15);  color: #ff8a65; border: 1px solid rgba(255, 87, 34, 0.3); }
+.tag-css    { background: rgba(33, 150, 243, 0.15); color: #64b5f6; border: 1px solid rgba(33, 150, 243, 0.3); }
+.tag-js     { background: rgba(255, 215, 64, 0.15); color: #ffd740; border: 1px solid rgba(255, 215, 64, 0.3); }
+.tag-react  { background: rgba(79, 195, 247, 0.15); color: #4fc3f7; border: 1px solid rgba(79, 195, 247, 0.3); }
+
+
+/* ════════════════════════════════════════════════
+   5. HEADER E NAVEGAÇÃO
+   ════════════════════════════════════════════════ */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  /*
+    ▸ position: sticky + top: 0
+    O elemento "gruda" ao topo quando o scroll ultrapassa sua posição.
+    DIFERENÇA de fixed: sticky ainda ocupa espaço no fluxo do documento.
+    fixed tira o elemento do fluxo — o conteúdo abaixo não "vê" o header.
+
+    ▸ z-index: 1000
+    Empilhamento — garante que o header fique SOBRE todo o conteúdo.
+    Sem z-index adequado, conteúdo com position:relative poderia
+    aparecer sobre o header durante o scroll.
+    SISTEMA DE Z-INDEX: Definir valores com gaps (100, 200, 1000)
+    para facilitar inserção de camadas intermediárias.
+  */
+  height: var(--header-altura);
+  background: rgba(11, 12, 16, 0.9);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  /*
+    ▸ backdrop-filter: blur()
+    Desfoca o conteúdo ATRÁS do elemento.
+    Cria efeito "vidro fosco" / "frosted glass".
+    Requer que o background seja semi-transparente (rgba).
+    -webkit-: Prefixo para Safari (necessário até hoje).
+
+    ▸ saturate(180%)
+    Aumenta a saturação do backdrop — enriquece as cores visíveis
+    através do vidro. Detalhe visual refinado.
+  */
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  /*
+    ▸ Flexbox no header
+    justify-content: space-between → logo à esquerda, nav à direita.
+    align-items: center → alinhamento vertical centralizado.
+    height: 100% → ocupa toda a altura do header.
+  */
+}
+
+.logo {
+  font-family: var(--fonte-display);
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  color: var(--cor-texto);
+  display: flex;
+  align-items: center;
+}
+
+.logo-dot {
+  color: var(--cor-acento);
+  font-size: 2rem;
+  line-height: 1;
+  margin-left: -0.1em;
+}
+
+.logo:hover .logo-texto,
+.logo:focus-visible .logo-texto {
+  color: var(--cor-acento);
+}
+
+.nav-lista {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-xl);
+}
+
+.nav-lista a {
+  font-family: var(--fonte-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--cor-texto-2);
+  position: relative;
+  padding-bottom: 2px;
+}
+
+/* Sublinhado animado nos links da nav */
+.nav-lista a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--cor-acento);
+  transition: width var(--trans-media);
+  /*
+    ▸ ::after pseudo-elemento
+    Cria o sublinhado VIRTUAL sem HTML extra.
+    width: 0 → invisível por padrão.
+    Transição de width: 0 → 100% ao hover cria o efeito de
+    "sublinhado que cresce da esquerda".
+  */
+}
+
+.nav-lista a:hover,
+.nav-lista a:focus-visible {
+  color: var(--cor-texto);
+}
+
+.nav-lista a:hover::after,
+.nav-lista a:focus-visible::after {
+  width: 100%;
+}
+
+/* Botão hambúrguer (mobile) */
+.nav-toggle {
+  display: none; /* Oculto em desktop — exibido via media query */
+  background: transparent;
+  border: 1px solid var(--cor-borda);
+  color: var(--cor-texto);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--raio-sm);
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all var(--trans-media);
+}
+
+.nav-toggle:hover {
+  border-color: var(--cor-acento);
+  color: var(--cor-acento);
+}
+
+
+/* ════════════════════════════════════════════════
+   6. HERO
+   ════════════════════════════════════════════════ */
+
+.hero {
+  min-height: calc(100vh - var(--header-altura));
+  /*
+    ▸ calc()
+    Função CSS para cálculos matemáticos combinando unidades.
+    100vh = altura total da viewport
+    var(--header-altura) = 70px
+    Resultado: hero ocupa a viewport menos o header.
+    PERMITE: Misturar unidades (px + rem + % + vh) — impossível sem calc().
+  */
+  display: flex;
+  align-items: center;
+  background: var(--gradiente-hero);
+  padding: var(--espaco-3xl) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efeito de grade no background */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /*
+    ▸ inset: 0
+    Atalho para top:0; right:0; bottom:0; left:0.
+    Faz o pseudo-elemento cobrir todo o pai.
+    Requer position:absolute no filho + position:relative no pai.
+  */
+  background-image:
+    linear-gradient(rgba(79, 195, 247, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79, 195, 247, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  /*
+    ▸ Múltiplos backgrounds
+    CSS suporta múltiplos background-image separados por vírgula.
+    Duas grades perpendiculares criam uma malha (grid visual).
+  */
+  pointer-events: none;
+  /*
+    ▸ pointer-events: none
+    O elemento não captura eventos de mouse (cliques, hover).
+    Essencial para overlays decorativos que não devem interferir
+    com a interação do usuário.
+  */
+}
+
+.hero-content {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: var(--espaco-3xl);
+  align-items: center;
+  width: 100%;
+  /*
+    ▸ CSS Grid com coluna fixa
+    1fr = todo o espaço restante (texto)
+    400px = largura fixa (imagem)
+    RESULTADO: Texto cresce, imagem tem tamanho fixo.
+  */
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espaco-sm);
+  font-family: var(--fonte-mono);
+  font-size: 0.8rem;
+  color: var(--cor-acento);
+  background: var(--cor-acento-glow);
+  border: 1px solid rgba(79, 195, 247, 0.2);
+  padding: 0.4rem 1rem;
+  border-radius: var(--raio-full);
+  margin-bottom: var(--espaco-lg);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-titulo {
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin-bottom: var(--espaco-md);
+  color: var(--cor-texto);
+}
+
+.hero-sobrenome {
+  color: var(--cor-acento);
+  /*
+    ▸ <span> dentro do <h1>
+    Permite estilizar parte do heading diferente.
+    Sem markup extra, precisaríamos de CSS muito complexo
+    ou mudar a semântica do heading.
+  */
+}
+
+.hero-cargo {
+  font-family: var(--fonte-mono);
+  font-size: 1.1rem;
+  color: var(--cor-texto-2);
+  margin-bottom: var(--espaco-lg);
+  letter-spacing: 0.05em;
+}
+
+.cargo-icone {
+  color: var(--cor-acento);
+  opacity: 0.7;
+  font-size: 0.9em;
+}
+
+.hero-descricao {
+  font-size: 1.1rem;
+  max-width: 500px;
+  margin-bottom: var(--espaco-xl);
+  color: var(--cor-texto-2);
+  line-height: 1.7;
+}
+
+.hero-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-md);
+  /*
+    ▸ flex-wrap: wrap
+    Permite que os botões "quebrem" para a próxima linha quando não
+    há espaço suficiente — evita overflow em telas pequenas.
+  */
+}
+
+/* Foto do hero */
+.hero-imagem-wrapper {
+  position: relative;
+}
+
+.hero-imagem-container {
+  position: relative;
+  width: 340px;
+  height: 340px;
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  /*
+    ▸ border-radius com 4 valores separados por /
+    Formato: border-radius: tl tr br bl / tl tr br bl
+    (horizontal / vertical para cada canto)
+    RESULTADO: Forma orgânica irregular (não um círculo perfeito).
+    Esta técnica cria formas "blob" sem SVG.
+  */
+  overflow: hidden;
+  border: 3px solid var(--cor-acento);
+  box-shadow: var(--sombra-acento), var(--sombra-lg);
+  animation: morph 8s ease-in-out infinite;
+  /*
+    ▸ animation: morph 8s ease-in-out infinite
+    Anima o border-radius para criar efeito de blob vivo.
+    8s = duração longa para suavidade
+    infinite = repete para sempre
+    ease-in-out = acelera e desacelera suavemente
+  */
+}
+
+.hero-foto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /*
+    ▸ object-fit: cover
+    Garante que a imagem preencha o container sem distorção.
+    FUNCIONA COMO: background-size: cover, mas para <img>.
+    VALORES:
+      cover   → preenche, corta as bordas (mais comum para fotos)
+      contain → mostra tudo, pode deixar espaço vazio
+      fill    → estica/distorce para preencher (raramente desejado)
+      none    → tamanho original da imagem
+  */
+  transition: transform var(--trans-lenta);
+}
+
+.hero-imagem-container:hover .hero-foto {
+  transform: scale(1.05);
+  /*
+    ▸ scale(1.05)
+    Zoom de 5% na imagem ao hover — micro-interação sutil.
+    O overflow:hidden do container "corta" a imagem que cresceu.
+    Efeito de "zoom suave" sem mostrar bordas.
+  */
+}
+
+.hero-imagem-badge {
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  background: var(--cor-superficie-2);
+  border: 2px solid var(--cor-borda-forte);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+/* Floating tech labels */
+.tech-float {
+  position: absolute;
+  font-family: var(--fonte-mono);
+  font-size: 0.7rem;
+  color: var(--cor-acento);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda-forte);
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--raio-full);
+  animation: float 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.tech-float-1 { top: 10%;  left: -20px;  animation-delay: 0s; }
+.tech-float-2 { bottom: 20%; right: -25px; animation-delay: 1s; }
+.tech-float-3 { top: 60%;  left: -15px;  animation-delay: 2s; }
+
+
+/* ════════════════════════════════════════════════
+   7. SEÇÕES GERAIS
+   ════════════════════════════════════════════════ */
+
+.secao {
+  padding: var(--espaco-3xl) 0;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.secao-sobre      { background: var(--cor-bg); }
+.secao-habilidades { background: var(--cor-superficie); }
+.secao-projetos   { background: var(--cor-bg); }
+.secao-experiencia { background: var(--cor-superficie); }
+.secao-contato    { background: var(--cor-bg); }
+
+.secao-header {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-lg);
+  margin-bottom: var(--espaco-2xl);
+}
+
+.secao-numero {
+  font-family: var(--fonte-mono);
+  font-size: 0.75rem;
+  color: var(--cor-acento);
+  opacity: 0.7;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  /*
+    ▸ opacity vs color com rgba
+    opacity afeta o elemento E seus filhos.
+    Para afetar apenas a cor, use rgba().
+    Aqui queremos afetar apenas este elemento — opacity é correto.
+  */
+}
+
+.secao-titulo {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--cor-texto);
+}
+
+.secao-linha {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--cor-borda) 0%, transparent 100%);
+  /*
+    ▸ flex: 1
+    O elemento cresce para preencher o espaço disponível no flex container.
+    Aqui, a linha horizontal ocupa todo o espaço após o título.
+    Resultado visual: título à esquerda, linha até a borda direita.
+  */
+}
+
+
+/* ════════════════════════════════════════════════
+   8. SOBRE
+   ════════════════════════════════════════════════ */
+
+.sobre-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--espaco-3xl);
+  align-items: start;
+}
+
+.sobre-texto p { color: var(--cor-texto-2); }
+
+.sobre-info-grid {
+  margin-top: var(--espaco-xl);
+}
+
+.info-lista {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.info-item {
+  padding: var(--espaco-md);
+  border: 1px solid var(--cor-borda);
+  border-collapse: collapse;
+  /*
+    ▸ Simulando border-collapse de tabela em <dl>
+    Bordas sobrepostas entre cells criam efeito de tabela.
+  */
+}
+
+.info-item:nth-child(odd) {
+  border-right: none;
+  /*
+    ▸ :nth-child(odd)
+    Seleciona filhos em posição ímpar (1, 3, 5...).
+    :nth-child(even) = par (2, 4, 6...).
+    :nth-child(2n+1) = equivalente a odd.
+    :nth-child(3n) = cada terceiro elemento.
+  */
+}
+
+.info-item dt {
+  font-family: var(--fonte-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--cor-texto-3);
+  margin-bottom: 0.25rem;
+}
+
+.info-item dd {
+  font-size: 0.95rem;
+  color: var(--cor-texto);
+  font-weight: 600;
+}
+
+.status-disponivel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--cor-verde);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--cor-verde);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+  /*
+    ▸ Indicador de status "online"
+    Pequeno círculo verde pulsando — comunica disponibilidade.
+    A animação pulse é definida na seção @keyframes.
+  */
+}
+
+.sobre-destaques {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-lg);
+}
+
+.destaque-card {
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-lg);
+  padding: var(--espaco-xl);
+  transition: all var(--trans-media);
+  position: relative;
+  overflow: hidden;
+}
+
+.destaque-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradiente-acento);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--trans-media);
+  /*
+    ▸ Borda superior animada
+    scaleX(0) = invisível por padrão.
+    transform-origin: left = cresce da esquerda.
+    Ao hover: scaleX(1) = visível completo.
+    Efeito: linha azul aparece no topo do card ao hover.
+  */
+}
+
+.destaque-card:hover {
+  border-color: var(--cor-borda-forte);
+  transform: translateY(-3px);
+  box-shadow: var(--sombra-md);
+}
+
+.destaque-card:hover::before {
+  transform: scaleX(1);
+}
+
+.destaque-icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  background: var(--cor-acento-glow);
+  border-radius: var(--raio-md);
+  margin-bottom: var(--espaco-md);
+  font-size: 1.1rem;
+  color: var(--cor-acento);
+}
+
+.destaque-card h3 {
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+  color: var(--cor-texto);
+}
+
+.destaque-card p {
+  font-size: 0.875rem;
+  margin-bottom: 0;
+}
+
+
+/* ════════════════════════════════════════════════
+   9. HABILIDADES + TABELA
+   ════════════════════════════════════════════════ */
+
+.tabela-wrapper {
+  overflow-x: auto;
+  /*
+    ▸ overflow-x: auto
+    Adiciona scroll horizontal apenas quando necessário.
+    Em mobile, tabelas largas ficam com scroll ao invés de
+    quebrar o layout ou truncar conteúdo.
+    ALTERNATIVA: overflow-x: scroll (sempre mostra scrollbar).
+    auto: apenas quando o conteúdo excede o container.
+  */
+  border-radius: var(--raio-lg);
+  border: 1px solid var(--cor-borda);
+}
+
+.tabela-habilidades {
+  width: 100%;
+  border-collapse: collapse;
+  /*
+    ▸ border-collapse: collapse
+    Valores:
+      collapse  → bordas adjacentes se fundem em uma só
+      separate  → cada célula tem sua própria borda (padrão)
+    Com separate: bordas doubles entre células (feio).
+    Com collapse: bordas únicas entre células (clean).
+  */
+  background: var(--cor-superficie);
+}
+
+.tabela-caption {
+  font-family: var(--fonte-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--cor-texto-3);
+  padding: var(--espaco-lg) var(--espaco-xl);
+  text-align: left;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+/* Células do cabeçalho */
+.tabela-habilidades thead th {
+  padding: var(--espaco-md) var(--espaco-xl);
+  font-family: var(--fonte-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--cor-acento);
+  text-align: left;
+  background: var(--cor-superficie-2);
+  border-bottom: 1px solid var(--cor-borda-forte);
+  white-space: nowrap;
+}
+
+/* Células de dado */
+.tabela-habilidades tbody td {
+  padding: var(--espaco-md) var(--espaco-xl);
+  font-size: 0.9rem;
+  color: var(--cor-texto-2);
+  border-bottom: 1px solid var(--cor-borda);
+  vertical-align: middle;
+  /*
+    ▸ vertical-align: middle
+    Alinhamento vertical do conteúdo dentro da célula.
+    VALORES: top, middle, bottom, baseline, text-top, text-bottom.
+    Especialmente útil quando células na mesma linha têm alturas diferentes.
+  */
+}
+
+/* Linhas alternadas (zebra striping) */
+.tabela-habilidades tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
+  /*
+    ▸ Zebra striping
+    Fundo alternado entre linhas pares e ímpares.
+    Melhora a legibilidade em tabelas com muitas linhas —
+    o olho rastreia a linha com mais facilidade.
+    ACESSIBILIDADE: Contraste deve ser mantido em ambas as linhas.
+  */
+}
+
+.tabela-habilidades tbody tr:hover {
+  background: var(--cor-acento-glow);
+}
+
+/* Barra de nível */
+.nivel-barra {
+  width: 120px;
+  height: 6px;
+  background: var(--cor-borda-forte);
+  border-radius: var(--raio-full);
+  overflow: hidden;
+}
+
+.nivel-fill {
+  height: 100%;
+  width: var(--nivel);
+  /*
+    ▸ var(--nivel) como largura dinâmica
+    A variável --nivel é definida inline no HTML: style="--nivel: 85%"
+    CSS usa a variável para definir a largura da barra.
+    VANTAGEM: Cada barra tem seu próprio valor sem precisar de
+    classes diferentes. JavaScript pode atualizar facilmente.
+  */
+  background: var(--gradiente-acento);
+  border-radius: var(--raio-full);
+  transition: width 1s ease;
+  animation: barraEntrada 1s ease forwards;
+  /*
+    ▸ animation: forwards
+    Mantém o estado final da animação após completar.
+    Sem forwards: retorna ao estado inicial após a animação.
+  */
+}
+
+.tabela-nota {
+  font-size: 0.8rem;
+  color: var(--cor-texto-3);
+  padding: var(--espaco-md) var(--espaco-xl);
+  text-align: center;
+  font-style: italic;
+}
+
+
+/* ════════════════════════════════════════════════
+   10. PROJETOS
+   ════════════════════════════════════════════════ */
+
+.projetos-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-sm);
+  margin-bottom: var(--espaco-2xl);
+}
+
+.filtro-btn {
+  font-family: var(--fonte-mono);
+  font-size: 0.8rem;
+  padding: 0.5rem 1.2rem;
+  background: transparent;
+  color: var(--cor-texto-2);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-full);
+  cursor: pointer;
+  transition: all var(--trans-media);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.filtro-btn:hover,
+.filtro-btn:focus-visible,
+.filtro-btn.filtro-ativo {
+  background: var(--cor-acento-glow);
+  color: var(--cor-acento);
+  border-color: var(--cor-acento);
+}
+
+.projetos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--espaco-xl);
+  /*
+    ▸ repeat(auto-fit, minmax(300px, 1fr))
+    RECEITA MÁGICA para grids responsivos:
+    auto-fit → cria quantas colunas couberem no espaço
+    minmax(300px, 1fr) → cada coluna: mínimo 300px, máximo 1fr
+
+    COMPORTAMENTO:
+      Tela > 900px  → 3 colunas
+      Tela 600-900px → 2 colunas
+      Tela < 600px  → 1 coluna
+
+    SEM MEDIA QUERIES! O grid se adapta automaticamente.
+    DIFERENÇA de auto-fill: auto-fit colapsa colunas vazias.
+    auto-fill cria colunas vazias para manter o número de tracks.
+  */
+}
+
+.projeto-card {
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-lg);
+  overflow: hidden;
+  transition: all var(--trans-media);
+  display: flex;
+  flex-direction: column;
+  /*
+    ▸ flex-direction: column
+    Organiza o conteúdo verticalmente.
+    Permite usar margin-top: auto nos links para empurrá-los para baixo.
+  */
+}
+
+.projeto-card:hover {
+  border-color: var(--cor-acento);
+  transform: translateY(-6px);
+  box-shadow: var(--sombra-lg), var(--sombra-acento);
+}
+
+.projeto-imagem {
+  position: relative;
+  overflow: hidden;
+}
+
+.projeto-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform var(--trans-lenta);
+  display: block;
+}
+
+.projeto-card:hover .projeto-img {
+  transform: scale(1.08);
+}
+
+.projeto-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 12, 16, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--trans-media);
+  font-family: var(--fonte-mono);
+  font-size: 0.85rem;
+  color: var(--cor-acento);
+  letter-spacing: 0.1em;
+}
+
+.projeto-card:hover .projeto-overlay {
+  opacity: 1;
+  /*
+    ▸ PATTERN: Overlay em hover
+    opacity: 0 por padrão — invisível.
+    opacity: 1 ao hover do CARD pai (não do overlay).
+    Resultado: toda a área do card ativa o overlay.
+    pointer-events: none no overlay para não bloquear outros hovers.
+  */
+}
+
+.projeto-conteudo {
+  padding: var(--espaco-xl);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--espaco-md);
+}
+
+.projeto-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--espaco-md);
+  flex-wrap: wrap;
+}
+
+.projeto-titulo {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--cor-texto);
+}
+
+.projeto-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-xs);
+}
+
+.projeto-descricao {
+  font-size: 0.875rem;
+  color: var(--cor-texto-2);
+  line-height: 1.65;
+  flex: 1;
+  /*
+    ▸ flex: 1 na descrição
+    A descrição ocupa o espaço disponível entre título e links.
+    Garante que os links de todos os cards fiquem na mesma altura.
+    Colunas ficam visualmente alinhadas — detalhe de qualidade.
+  */
+}
+
+.projeto-links {
+  display: flex;
+  gap: var(--espaco-lg);
+  margin-top: auto;
+  /*
+    ▸ margin-top: auto
+    Em flex column: empurra este elemento para o FINAL do container.
+    Mesmo que as descrições tenham alturas diferentes, os links
+    sempre ficam no rodapé do card. Alinhamento visual perfeito.
+  */
+}
+
+.projeto-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--fonte-mono);
+  font-size: 0.8rem;
+  color: var(--cor-texto-2);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: color var(--trans-media);
+}
+
+.projeto-link:hover,
+.projeto-link:focus-visible {
+  color: var(--cor-acento);
+}
+
+.projeto-link-demo {
+  color: var(--cor-acento);
+  opacity: 0.7;
+}
+
+.projeto-link-demo:hover,
+.projeto-link-demo:focus-visible {
+  opacity: 1;
+}
+
+/* Card oculto (filtrado) */
+.projeto-card.oculto {
+  display: none;
+  /*
+    ▸ JavaScript adiciona .oculto aos cards filtrados.
+    display: none remove completamente do fluxo — invisível e inacessível.
+    ALTERNATIVA: visibility: hidden (oculto mas ocupa espaço).
+    ALTERNATIVA: opacity: 0 (invisível mas interativo — geralmente ruim).
+  */
+}
+
+
+/* ════════════════════════════════════════════════
+   11. EXPERIÊNCIA (TIMELINE)
+   ════════════════════════════════════════════════ */
+
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+/* Linha vertical da timeline */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--cor-acento), transparent);
+  /*
+    ▸ Gradiente vertical na linha
+    Começa com a cor do acento e desvanece (fade to transparent).
+    Cria sensação de que a linha "vai em direção ao futuro".
+  */
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: var(--espaco-3xl);
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: var(--espaco-xl);
+}
+
+/* Ponto da timeline */
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2rem;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  background: var(--cor-acento);
+  border-radius: 50%;
+  transform: translateX(-5px);
+  box-shadow: 0 0 10px var(--cor-acento);
+  /*
+    ▸ Ponto brilhante na timeline
+    border-radius: 50% = círculo perfeito.
+    box-shadow com a cor do acento cria efeito glow.
+    Position absolute relativo ao .timeline-item (position: relative).
+  */
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+  /*
+    ▸ :last-child
+    Remove o espaçamento inferior do último item.
+    Evita espaço extra no final da timeline.
+  */
+}
+
+.timeline-data { padding-top: 4px; }
+
+.timeline-periodo {
+  display: block;
+  font-family: var(--fonte-mono);
+  font-size: 0.75rem;
+  color: var(--cor-acento);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.timeline-cargo {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--cor-texto);
+  margin-bottom: 0.25rem;
+}
+
+.timeline-empresa {
+  font-size: 0.85rem;
+  color: var(--cor-texto-3);
+  margin-bottom: var(--espaco-md);
+  font-family: var(--fonte-mono);
+  letter-spacing: 0.05em;
+}
+
+.timeline-lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-sm);
+}
+
+.timeline-lista li {
+  font-size: 0.9rem;
+  color: var(--cor-texto-2);
+  padding-left: var(--espaco-lg);
+  position: relative;
+}
+
+.timeline-lista li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--cor-acento);
+  font-size: 0.7rem;
+  top: 0.15em;
+}
+
+
+/* ════════════════════════════════════════════════
+   12. CONTATO + FORMULÁRIO
+   ════════════════════════════════════════════════ */
+
+.contato-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--espaco-3xl);
+  align-items: start;
+}
+
+.contato-intro {
+  font-size: 1rem;
+  line-height: 1.75;
+  margin-bottom: var(--espaco-xl);
+}
+
+.contato-endereco {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-lg);
+  font-style: normal;
+  /*
+    ▸ font-style: normal no <address>
+    Browsers aplicam itálico ao <address> por padrão.
+    Resetamos para manter o estilo do projeto.
+    SEMÂNTICA: Remover o itálico não altera a semântica do elemento.
+  */
+}
+
+.contato-link {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-lg);
+  color: var(--cor-texto-2);
+  transition: color var(--trans-media);
+}
+
+.contato-link:hover,
+.contato-link:focus-visible {
+  color: var(--cor-acento);
+}
+
+.contato-link-icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--cor-superficie-2);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-md);
+  color: var(--cor-acento);
+  flex-shrink: 0;
+  /*
+    ▸ flex-shrink: 0
+    Impede que o ícone encolha quando o espaço é limitado.
+    Por padrão, flex items podem encolher (flex-shrink: 1).
+    Para elementos de tamanho fixo (ícones, avatares), usar 0.
+  */
+  transition: all var(--trans-media);
+}
+
+.contato-link:hover .contato-link-icone {
+  background: var(--cor-acento-glow);
+  border-color: var(--cor-acento);
+}
+
+/* FORMULÁRIO */
+.formulario {
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-lg);
+  padding: var(--espaco-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-lg);
+}
+
+.campo-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-xs);
+}
+
+.campo-label {
+  font-family: var(--fonte-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--cor-texto-2);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.campo-obrigatorio {
+  color: var(--cor-acento);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.campo-input {
+  background: var(--cor-bg);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-md);
+  padding: 0.8rem 1rem;
+  color: var(--cor-texto);
+  font-size: 0.95rem;
+  transition: border-color var(--trans-media), box-shadow var(--trans-media);
+  width: 100%;
+  /*
+    ▸ width: 100% em inputs
+    Por padrão, inputs não herdam a largura do pai em todos os browsers.
+    width: 100% garante que o input preencha o container.
+    Com box-sizing: border-box (do reset), padding está incluído.
+  */
+}
+
+.campo-input::placeholder {
+  color: var(--cor-texto-3);
+  /*
+    ▸ ::placeholder
+    Pseudo-elemento para estilizar o texto placeholder.
+    ATENÇÃO: O placeholder deve ter contraste suficiente (WCAG 1.4.3).
+    Cor muito fraca pode ser ilegível — aqui usamos var(--cor-texto-3)
+    que pode ser insuficiente. Em produção, verificar com ferramentas de contraste.
+  */
+}
+
+.campo-input:focus,
+.campo-input:focus-visible {
+  outline: none;
+  border-color: var(--cor-acento);
+  box-shadow: 0 0 0 3px var(--cor-acento-glow);
+  /*
+    ▸ Box-shadow para focus em vez de outline
+    outline: none REMOVE o indicador de foco padrão.
+    OBRIGATÓRIO: Fornecer alternativa visual equivalente ou melhor.
+    box-shadow: 0 0 0 3px → cria um "anel" ao redor do campo.
+    VANTAGEM: box-shadow respeita border-radius (outline não, em browsers antigos).
+    Esta técnica é acessível pois o anel é claramente visível.
+  */
+}
+
+.campo-input:invalid:not(:placeholder-shown) {
+  border-color: var(--cor-vermelho);
+  /*
+    ▸ :invalid:not(:placeholder-shown)
+    :invalid → input com valor inválido (validação HTML5)
+    :not(:placeholder-shown) → apenas quando tem conteúdo digitado
+    COMBINAÇÃO: Mostra borda vermelha apenas quando o usuário
+      digitou algo inválido — não no estado inicial vazio.
+    SEM :not(:placeholder-shown): Campo mostraria erro vermelho
+      imediatamente ao carregar a página (péssima UX).
+  */
+}
+
+.campo-textarea {
+  resize: vertical;
+  min-height: 120px;
+  /*
+    ▸ resize: vertical
+    Permite redimensionar apenas verticalmente.
+    resize: none → bloqueia redimensionamento (frustrante para o usuário)
+    resize: horizontal → apenas horizontal (pode quebrar o layout)
+    resize: both → livre (pode ultrapassar o container)
+    vertical → recomendado para textareas
+  */
+}
+
+.campo-select {
+  cursor: pointer;
+  appearance: none;
+  /*
+    ▸ appearance: none
+    Remove a aparência nativa do select (seta do sistema).
+    Permite customizar totalmente o estilo.
+    DESVANTAGEM: Perde indicação visual de que é um dropdown.
+    Compensar com ícone CSS ou background-image de seta customizada.
+  */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234fc3f7' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+  /*
+    ▸ Seta customizada via SVG inline como background
+    URL encode de SVG como data URI.
+    Posicionado à direita do select para indicar que é um dropdown.
+    Solução puramente CSS — sem imagens externas.
+  */
+}
+
+.campo-rodape {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.campo-erro {
+  font-size: 0.8rem;
+  color: var(--cor-vermelho);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.campo-hint {
+  font-size: 0.78rem;
+  color: var(--cor-texto-3);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.campo-contador {
+  font-family: var(--fonte-mono);
+  font-size: 0.75rem;
+  color: var(--cor-texto-3);
+  margin-left: auto;
+}
+
+/* Checkbox */
+.campo-grupo-checkbox {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--espaco-md);
+}
+
+.campo-grupo-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  accent-color: var(--cor-acento);
+  cursor: pointer;
+  /*
+    ▸ accent-color
+    Propriedade moderna (2021+) para colorir controles nativos.
+    Funciona em: checkboxes, radio buttons, range, progress.
+    Mais simples que customizar com appearance:none.
+    Mantém o estilo nativo do SO com a cor customizada.
+  */
+}
+
+.campo-label-checkbox {
+  font-size: 0.85rem;
+  color: var(--cor-texto-2);
+  cursor: pointer;
+  text-transform: none;
+  letter-spacing: 0;
+  font-family: var(--fonte-corpo);
+}
+
+/* Botão do formulário */
+.btn-formulario {
+  width: 100%;
+  justify-content: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  position: relative;
+}
+
+.btn-icone-right {
+  margin-left: 0.25rem;
+}
+
+/* Feedback do formulário */
+.form-feedback {
+  padding: var(--espaco-md);
+  border-radius: var(--raio-md);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.form-feedback.sucesso {
+  background: rgba(105, 240, 174, 0.1);
+  border: 1px solid rgba(105, 240, 174, 0.3);
+  color: var(--cor-verde);
+}
+
+.form-feedback.erro {
+  background: rgba(255, 82, 82, 0.1);
+  border: 1px solid rgba(255, 82, 82, 0.3);
+  color: var(--cor-vermelho);
+}
+
+
+/* ════════════════════════════════════════════════
+   13. FOOTER
+   ════════════════════════════════════════════════ */
+
+.site-footer {
+  background: var(--cor-superficie);
+  border-top: 1px solid var(--cor-borda);
+  padding: var(--espaco-3xl) 0 var(--espaco-xl);
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--espaco-3xl);
+  margin-bottom: var(--espaco-2xl);
+}
+
+.footer-slogan {
+  font-size: 0.85rem;
+  color: var(--cor-texto-3);
+  margin-top: var(--espaco-md);
+  line-height: 1.6;
+  max-width: 280px;
+}
+
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-md);
+}
+
+.footer-nav a {
+  font-size: 0.875rem;
+  color: var(--cor-texto-2);
+  transition: color var(--trans-media);
+}
+
+.footer-nav a:hover,
+.footer-nav a:focus-visible {
+  color: var(--cor-acento);
+}
+
+.footer-social-titulo {
+  font-family: var(--fonte-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--cor-texto-3);
+  margin-bottom: var(--espaco-md);
+}
+
+.social-lista {
+  display: flex;
+  gap: var(--espaco-md);
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background: var(--cor-superficie-2);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-md);
+  color: var(--cor-texto-2);
+  font-size: 1rem;
+  transition: all var(--trans-media);
+}
+
+.social-link:hover,
+.social-link:focus-visible {
+  background: var(--cor-acento-glow);
+  border-color: var(--cor-acento);
+  color: var(--cor-acento);
+  transform: translateY(-2px);
+}
+
+.footer-bottom {
+  padding-top: var(--espaco-xl);
+  border-top: 1px solid var(--cor-borda);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--espaco-md);
+}
+
+.footer-copy,
+.footer-made {
+  font-family: var(--fonte-mono);
+  font-size: 0.75rem;
+  color: var(--cor-texto-3);
+  margin-bottom: 0;
+}
+
+.footer-made abbr {
+  color: var(--cor-acento);
+}
+
+
+/* ════════════════════════════════════════════════
+   14. ANIMAÇÕES (@keyframes)
+   ════════════════════════════════════════════════
+   ▸ @keyframes define os estágios de uma animação.
+   ▸ Referenciada pela propriedade animation: nome ...
+   ▸ from/to = 0%/100% (apenas dois estágios)
+   ▸ Múltiplas porcentagens para estágios intermediários
+*/
+
+/* Animação de entrada fadeUp */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Blob morphing da foto */
+@keyframes morph {
+  0%   { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+  25%  { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; }
+  50%  { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; }
+  75%  { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+}
+
+/* Float das tech labels */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+  /*
+    ▸ 0%, 100% com o mesmo valor
+    Cria uma animação em loop perfeito sem "salto" ao reiniciar.
+    O ponto inicial e final são idênticos.
+  */
+}
+
+/* Pulsação do status dot */
+@keyframes pulse {
+  0%, 100% { opacity: 1;   transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.85); }
+}
+
+/* Entrada das barras de habilidade */
+@keyframes barraEntrada {
+  from { width: 0; }
+  to   { width: var(--nivel); }
+}
+
+/* Animações de entrada na página */
+.hero-badge { animation: fadeUp 0.5s ease 0.1s both; }
+.hero-titulo { animation: fadeUp 0.5s ease 0.2s both; }
+.hero-cargo { animation: fadeUp 0.5s ease 0.3s both; }
+.hero-descricao { animation: fadeUp 0.5s ease 0.35s both; }
+.hero-acoes { animation: fadeUp 0.5s ease 0.4s both; }
+.hero-imagem-wrapper { animation: fadeUp 0.6s ease 0.3s both; }
+/*
+  ▸ animation-delay escalonado
+  Cada elemento aparece um pouco depois do anterior.
+  Cria "stagger effect" — animação em cascata elegante.
+  "both" = aplica o estado inicial da animação antes de começar
+  (evita flash de conteúdo em posição final antes da animação).
+*/
+
+
+/* ════════════════════════════════════════════════
+   15. RESPONSIVIDADE (Media Queries)
+   ════════════════════════════════════════════════
+   ▸ @media: Aplica estilos condicionalmente baseado em características
+     do dispositivo (largura, orientação, resolução, preferências).
+   ▸ ABORDAGEM "Desktop First": Estilos padrão para desktop,
+     media queries sobrescrevem para telas menores.
+   ▸ ALTERNATIVA "Mobile First": Estilos base para mobile,
+     min-width para telas maiores. Geralmente preferível.
+   ▸ BREAKPOINTS COMUNS:
+     480px  → Mobile pequeno
+     640px  → Mobile grande / Small tablet
+     768px  → Tablet portrait
+     1024px → Tablet landscape / Small desktop
+     1200px → Desktop
+*/
+
+/* ── TABLET (max-width: 1024px) ── */
+@media (max-width: 1024px) {
+
+  .hero-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  /*
+    ▸ Uma coluna em tablets
+    O grid de duas colunas colapsa para uma.
+    text-align: center centraliza o texto.
+  */
+
+  .hero-imagem-wrapper {
+    order: -1;
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--espaco-xl);
+  }
+  /*
+    ▸ order: -1
+    Reordena o item no flex/grid sem mudar o HTML.
+    Em mobile, a foto fica acima do texto.
+    HTML permanece semanticamente correto (texto primeiro é melhor para SEO).
+  */
+
+  .hero-imagem-container {
+    width: 280px;
+    height: 280px;
+  }
+
+  .hero-acoes { justify-content: center; }
+
+  .sobre-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contato-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--espaco-2xl);
+  }
+
+  .timeline-item {
+    grid-template-columns: 1fr;
+    gap: var(--espaco-sm);
+  }
+}
+
+/* ── MOBILE (max-width: 640px) ── */
+@media (max-width: 640px) {
+
+  :root {
+    --espaco-3xl: 3.5rem;
+    /*
+      ▸ Sobrescrevendo variáveis em media queries!
+      CSS variables são runtime — podemos redefinir em @media.
+      Reduz o espaçamento geral em mobile automaticamente.
+      Qualquer propriedade que usa var(--espaco-3xl) se ajusta.
+    */
+  }
+
+  .container {
+    padding-left: var(--espaco-lg);
+    padding-right: var(--espaco-lg);
+  }
+
+  /* Header mobile */
+  .nav-lista {
+    display: none;
+    position: absolute;
+    top: var(--header-altura);
+    left: 0;
+    right: 0;
+    background: var(--cor-superficie);
+    border-bottom: 1px solid var(--cor-borda);
+    flex-direction: column;
+    gap: 0;
+    padding: var(--espaco-md) 0;
+  }
+
+  .nav-lista.aberta {
+    display: flex;
+    /*
+      ▸ JavaScript adiciona .aberta ao clicar no hambúrguer.
+      Alterna entre display:none e display:flex.
+    */
+  }
+
+  .nav-lista a {
+    padding: var(--espaco-md) var(--espaco-xl);
+  }
+
+  .nav-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sobre-destaques {
+    gap: var(--espaco-md);
+  }
+
+  .info-lista {
+    grid-template-columns: 1fr;
+  }
+
+  .info-item:nth-child(odd) {
+    border-right: 1px solid var(--cor-borda);
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: var(--espaco-xl);
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  /* Tabela de habilidades: scroll horizontal em mobile */
+  .tabela-habilidades {
+    min-width: 500px;
+    /*
+      ▸ min-width na tabela
+      Garante que a tabela não fique comprimida.
+      O .tabela-wrapper com overflow-x:auto permite scroll.
+      Usuário pode scrollar para ver a tabela completa.
+    */
+  }
+}
+
+
+/* ════════════════════════════════════════════════
+   16. ACESSIBILIDADE — Preferências do Usuário
+   ════════════════════════════════════════════════
+   ▸ prefers-reduced-motion: O usuário configurou no sistema operacional
+     que prefere MENOS animações (vestibular disorders, epilepsia, etc.)
+   ▸ prefers-color-scheme: Preferência de tema claro/escuro
+   ▸ prefers-contrast: Preferência por alto contraste
+   ▸ WCAG 2.3.3: Animações opcionais devem poder ser desativadas.
+*/
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  /*
+    ▸ Desativa TODAS as animações e transições para usuários sensíveis.
+    animation-duration: 0.01ms → praticamente instantâneo (não 0s,
+    pois 0s pode causar bugs em alguns casos).
+    !important: Necessário para sobrescrever animações inline e específicas.
+    scroll-behavior: auto → rolagem instantânea (sem smooth scroll).
+    IMPACTO: Nenhum elemento "pula" ou "agita" — conteúdo direto ao ponto.
+  */
+
+  .status-dot {
+    animation: none;
+  }
+
+  .hero-imagem-container {
+    animation: none;
+  }
+
+  .tech-float {
+    animation: none;
+  }
+}
+
+/* Alto contraste */
+@media (forced-colors: active) {
+  /*
+    ▸ forced-colors: active
+    Modo de alto contraste do Windows (antes: prefers-contrast).
+    O sistema operacional substitui as cores por um conjunto limitado.
+    Este bloco garante que elementos customizados ainda sejam visíveis.
+  */
+  .btn {
+    border: 2px solid ButtonText;
+  }
+
+  .projeto-card {
+    border: 1px solid ButtonText;
+  }
+}
+
+/*
+  ════════════════════════════════════════════════
+  FIM DO ARQUIVO CSS
+
+  RESUMO DO QUE FOI DEMONSTRADO:
+  ════════════════════════════════════════════════
+
+  VARIÁVEIS CSS (Custom Properties):
+    :root com --variavel: valor; e uso de var()
+
+  FUNÇÕES CSS:
+    clamp(min, preferred, max) — tipografia fluida
+    calc(expr) — cálculos matemáticos
+    var(--nome) — referência a variáveis
+    linear-gradient() — gradientes
+    rgba() — cor com transparência
+
+  SELETORES AVANÇADOS:
+    :nth-child(n), :last-child, :first-child
+    :hover, :focus, :focus-visible, :invalid
+    :not(:placeholder-shown)
+    ::before, ::after, ::placeholder, ::selection
+    [atributo] — seletor de atributo
+
+  LAYOUT:
+    Flexbox (display:flex, justify-content, align-items,
+             flex-direction, flex-wrap, flex:1, gap)
+    CSS Grid (display:grid, grid-template-columns,
+              auto-fit, minmax, auto-fill)
+    Position (sticky, absolute, relative, fixed)
+    z-index, overflow
+
+  RESPONSIVIDADE:
+    @media (max-width: ...) — media queries
+    clamp() — tipografia responsiva sem queries
+    auto-fit/minmax — grid responsivo sem queries
+
+  PERFORMANCE:
+    transform (GPU accelerated)
+    will-change (quando necessário)
+    transition (com propriedade específica, não all)
+
+  ACESSIBILIDADE:
+    :focus-visible (foco para teclado)
+    prefers-reduced-motion
+    forced-colors
+    accent-color
+    pointer-events: none
+*/

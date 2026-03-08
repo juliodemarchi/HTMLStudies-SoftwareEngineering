@@ -1,0 +1,1971 @@
+<!DOCTYPE html>
+<!-- 
+  ╔══════════════════════════════════════════════════════════════╗
+  ║   PORTFÓLIO — JULIO CESAR DEMARCHI JUNIOR                   ║
+  ║   Engenheiro de Software Júnior                             ║
+  ║   Projeto: Estrutura Semântica HTML Completa                ║
+  ╚══════════════════════════════════════════════════════════════╝
+
+  ARQUIVO: index.html
+  AUTOR: Julio Cesar Demarchi Junior
+  CARGO: Engenheiro de Software Júnior
+  DESCRIÇÃO: Portfólio pessoal demonstrando domínio de HTML semântico,
+             acessibilidade, formulários, tabelas, listas e integração
+             com CSS externo e JavaScript externo.
+-->
+
+<!--
+  ▸ DECLARAÇÃO DOCTYPE
+  O QUE É: Não é uma tag HTML — é uma instrução para o navegador.
+  POR QUE USAR: Informa que o documento segue o padrão HTML5.
+  SEM ISSO: O navegador entra em "quirks mode" — comportamento
+            imprevisível e inconsistente entre Chrome, Firefox, Safari.
+  POSIÇÃO: Deve ser ABSOLUTAMENTE a primeira linha do arquivo.
+  REGRA: Sempre em letras maiúsculas por convenção.
+-->
+
+<html lang="pt-BR">
+<!--
+  ▸ TAG <html>
+  O QUE É: Elemento raiz — envolve TODO o conteúdo do documento.
+  ATRIBUTO lang="pt-BR":
+    - Informa o idioma principal da página.
+    - Leitores de tela (NVDA, JAWS, VoiceOver) usam isso para
+      pronunciar o texto corretamente.
+    - Motores de busca usam para indexação geográfica.
+    - Ferramentas de tradução automática detectam o idioma original.
+  VALORES COMUNS: "pt-BR" (Português Brasil), "en-US", "es", "fr"
+  REGRA: Nunca omitir — é um critério de conformidade WCAG 3.1.1.
+-->
+
+<!-- ═══════════════════════════════════════
+     HEAD — METADADOS DA PÁGINA
+     Nada aqui é visível ao usuário diretamente.
+     ═══════════════════════════════════════ -->
+<head>
+  <!--
+    ▸ TAG <head>
+    O QUE É: Seção de cabeçalho do documento — metadados.
+    CONTEÚDO TÍPICO: <meta>, <title>, <link>, <style>, <script defer>
+    NÃO CONTÉM: Conteúdo visível (imagens, textos, etc.)
+    RENDERIZAÇÃO: O navegador lê o <head> antes de renderizar o <body>.
+  -->
+
+  <meta charset="UTF-8">
+  <!--
+    ▸ META CHARSET
+    O QUE É: Define a codificação de caracteres do documento.
+    POR QUE UTF-8: Suporta mais de 1 milhão de caracteres —
+      letras acentuadas (ã, é, ç), símbolos, emojis, caracteres
+      de qualquer idioma do mundo.
+    SEM ISSO: "ção" vira "Ã§Ã£o", "é" vira "Ã©" (lixo visual).
+    POSIÇÃO: Deve ser a PRIMEIRA tag dentro de <head> — antes
+      do <title> — para que o próprio título seja lido corretamente.
+  -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--
+    ▸ META VIEWPORT
+    O QUE É: Controla como a página é renderizada em dispositivos móveis.
+    ATRIBUTOS:
+      width=device-width  → largura da viewport = largura física da tela
+      initial-scale=1.0   → zoom inicial de 100% (sem zoom)
+    SEM ISSO: A página renderiza como se fosse desktop (980px) e aparece
+      miniaturizada no celular — o usuário precisa fazer zoom manual.
+    REGRA: Obrigatório em qualquer projeto responsivo moderno.
+    CUIDADO: Nunca adicionar "user-scalable=no" — impede zoom para
+      deficientes visuais (violação WCAG 1.4.4).
+  -->
+
+  <meta name="description" content="Portfólio de Julio Cesar Demarchi Junior, Engenheiro de Software Júnior especializado em desenvolvimento web com foco em HTML semântico e boas práticas.">
+  <!--
+    ▸ META DESCRIPTION
+    O QUE É: Descrição da página exibida nos resultados de busca.
+    ONDE APARECE: Texto cinza abaixo do título azul no Google/Bing.
+    IMPACTO: Não afeta diretamente o ranking, mas influencia o
+      CTR (Click-Through Rate) — boas descrições geram mais cliques.
+    TAMANHO IDEAL: Entre 150 e 160 caracteres.
+    REGRA: Única por página — não copiar a mesma em todas as páginas.
+  -->
+
+  <meta name="author" content="Julio Cesar Demarchi Junior">
+  <!--
+    ▸ META AUTHOR
+    O QUE É: Identifica o criador do documento.
+    USO: Ferramentas de indexação, leitores RSS, motores de busca.
+  -->
+
+  <meta name="keywords" content="engenheiro de software, desenvolvedor web, HTML, CSS, JavaScript, portfólio, Julio Demarchi">
+  <!--
+    ▸ META KEYWORDS
+    O QUE É: Palavras-chave relacionadas ao conteúdo.
+    CONTEXTO HISTÓRICO: Era importante para SEO nos anos 2000.
+    HOJE: Google ignora completamente (foi abusado por spam).
+    AINDA ÚTIL: Alguns motores de busca menores ainda consideram.
+  -->
+
+  <!-- Open Graph — controla a aparência ao compartilhar nas redes sociais -->
+  <meta property="og:title" content="Julio Cesar Demarchi Junior | Engenheiro de Software">
+  <meta property="og:description" content="Portfólio de projetos e habilidades técnicas em desenvolvimento web.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <!--
+    ▸ OPEN GRAPH (og:)
+    O QUE É: Protocolo criado pelo Facebook (2010), adotado pela maioria
+      das redes sociais — LinkedIn, Twitter, WhatsApp, Slack, Discord.
+    IMPACTO: Define como a página aparece no "card de preview" ao
+      compartilhar o link. Sem isso, a rede social escolhe
+      título e imagem aleatoriamente (resultado ruim).
+    PROPRIEDADES ESSENCIAIS:
+      og:title       → título do card
+      og:description → descrição do card
+      og:image       → imagem de capa (ideal: 1200x630px)
+      og:type        → tipo de conteúdo (website, article, profile)
+      og:locale      → idioma no formato locale (pt_BR, en_US)
+  -->
+
+  <title>Julio Cesar Demarchi Junior | Engenheiro de Software Júnior</title>
+  <!--
+    ▸ TAG <title>
+    O QUE É: Título do documento — aparece em:
+      1. Aba do navegador
+      2. Favoritos/bookmarks
+      3. Resultados de busca (link azul clicável no Google)
+      4. Histórico do navegador
+    TAMANHO IDEAL: 50 a 60 caracteres.
+    REGRA: Único por página — cada página deve ter título diferente.
+    NUNCA: "Untitled Document", "Página 1" ou igual em todas as páginas.
+    FORMATO RECOMENDADO: "Título da Página | Nome do Site"
+  -->
+
+  <!-- ── FONTES DO GOOGLE FONTS ── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!--
+    ▸ LINK rel="preconnect"
+    O QUE É: Instrução de performance — pede ao navegador para
+      abrir a conexão TCP/TLS com o servidor ANTES de precisar
+      baixar os recursos.
+    GANHO: Reduz a latência em ~100-300ms na primeira requisição.
+    QUANDO USAR: Para recursos externos que serão necessários em breve.
+  -->
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!--
+    ▸ ATRIBUTO crossorigin
+    O QUE É: Indica que a requisição deve usar CORS
+      (Cross-Origin Resource Sharing).
+    POR QUE AQUI: O Google Fonts usa dois domínios separados —
+      fonts.googleapis.com (CSS) e fonts.gstatic.com (arquivos de fonte).
+      O segundo requer crossorigin para preconnect funcionar corretamente.
+    REGRA: Usar crossorigin quando o recurso vem de outro domínio
+      e usa autenticação ou credenciais.
+  -->
+
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <!--
+    ▸ LINK rel="stylesheet" (Google Fonts)
+    O QUE É: Importa as famílias tipográficas do servidor do Google.
+    FONTES ESCOLHIDAS:
+      Syne         → Display/títulos — moderna, geométrica, impactante
+      Crimson Pro  → Corpo/parágrafos — serifada elegante, boa legibilidade
+      JetBrains Mono → Código/tags — monospace profissional
+    ATRIBUTO display=swap:
+      → Exibe texto com fonte fallback (genérica) enquanto a fonte
+        customizada carrega. Evita FOIT (Flash of Invisible Text).
+    ALTERNATIVA: @font-face no CSS com arquivos locais (melhor performance,
+      sem dependência externa, necessário para privacidade LGPD).
+  -->
+
+  <!-- ── ÍCONES (Font Awesome via CDN) ── -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer">
+  <!--
+    ▸ FONT AWESOME via CDN
+    O QUE É: Biblioteca de ícones vetoriais (SVG-via-CSS).
+    CDN: Content Delivery Network — arquivo hospedado em servidor
+      otimizado geograficamente próximo do usuário.
+    ATRIBUTO integrity: Hash criptográfico SHA-512 do arquivo.
+      → Subresource Integrity (SRI): Se o CDN for comprometido e o
+        arquivo alterado, o browser REJEITA o recurso.
+      SEGURANÇA: Proteção contra ataques de supply chain.
+    ATRIBUTO crossorigin: Necessário para SRI funcionar.
+    ATRIBUTO referrerpolicy="no-referrer": Não envia o cabeçalho
+      Referer ao CDN — preserva a privacidade do usuário.
+  -->
+
+  <!-- ── CSS EXTERNO ── -->
+  <link rel="stylesheet" href="css/style.css">
+  <!--
+    ▸ LINK rel="stylesheet" (CSS externo)
+    O QUE É: Conecta o documento HTML ao arquivo de estilos.
+    CAMINHO RELATIVO: "css/style.css" → pasta css/ dentro do projeto.
+    POSIÇÃO: No <head> — o navegador baixa e processa o CSS ANTES
+      de renderizar a página, evitando FOUC (Flash of Unstyled Content).
+    POR QUE EXTERNO (e não <style> inline):
+      1. CACHE: O browser guarda o arquivo; outras páginas do site
+         não precisam rebaixar o CSS.
+      2. SEPARAÇÃO: HTML = estrutura; CSS = estilo. Princípio SoC.
+      3. MANUTENÇÃO: Mudar o estilo de todo o site em um só arquivo.
+      4. REUSO: Múltiplas páginas compartilham o mesmo CSS.
+  -->
+
+</head>
+<!-- ═══════════════════════════════════════════════════
+     FIM DO HEAD
+     ═══════════════════════════════════════════════════ -->
+
+<!-- ═══════════════════════════════════════
+     BODY — CONTEÚDO VISÍVEL DA PÁGINA
+     ═══════════════════════════════════════ -->
+<body>
+  <!--
+    ▸ TAG <body>
+    O QUE É: Elemento que contém TODO o conteúdo visível da página.
+    REGRA: Apenas UM <body> por documento HTML.
+    SEPARAÇÃO CLARA:
+      <head> = informações SOBRE a página (metadados)
+      <body> = informações DA página (conteúdo real)
+    NOTA: Tudo que o usuário vê, lê, clica e interage está aqui.
+  -->
+
+  <!-- ════════════════════════════════════════════════
+       HEADER — CABEÇALHO PRINCIPAL DO SITE
+       ════════════════════════════════════════════════ -->
+  <header class="site-header" role="banner" id="topo">
+    <!--
+      ▸ TAG <header>
+      O QUE É: Elemento semântico que representa o cabeçalho do documento
+        ou de uma seção. Geralmente contém logo, navegação, título do site.
+      DIFERENÇA de <div>: <div class="header"> não comunica nada.
+        <header> diz ao navegador, leitores de tela e motores de busca:
+        "este bloco é o cabeçalho".
+      PODE APARECER MÚLTIPLAS VEZES: Um <header> por <article> ou
+        <section> é válido — representa o cabeçalho daquele contexto.
+      ATRIBUTO role="banner":
+        → Landmark ARIA que marca o cabeçalho PRINCIPAL do site.
+        → Leitores de tela permitem atalho direto para landmarks.
+        → Implícito em <header> fora de <article>/<section>,
+          mas role explícito garante compatibilidade máxima.
+      ATRIBUTO id="topo": Âncora para o link "Voltar ao topo" do footer.
+    -->
+
+    <div class="container">
+      <div class="header-inner">
+
+        <!-- LOGO / IDENTIDADE -->
+        <a href="#inicio" class="logo" aria-label="Julio Demarchi — Ir para o início da página">
+          <!--
+            ▸ TAG <a> (Anchor / Link)
+            O QUE É: Define um hiperlink — navegação para outra página,
+              seção da mesma página (âncora #), email, telefone.
+            ATRIBUTO href="#inicio":
+              → "#" significa âncora interna — rola até id="inicio".
+              → JavaScript usa href="#" para links sem destino (evitar!
+                Usar href="javascript:void(0)" ou <button> no lugar).
+            ATRIBUTO aria-label:
+              → Texto alternativo lido pelo screen reader NO LUGAR do
+                conteúdo visível.
+              → "JCDJR" não explica o destino — aria-label fornece
+                contexto completo: quem é e para onde vai.
+              → REGRA: Todo link deve fazer sentido fora de contexto visual.
+          -->
+          <span class="logo-texto" aria-hidden="true">JCDJ</span>
+          <!--
+            ▸ ATRIBUTO aria-hidden="true"
+            O QUE FAZ: Oculta completamente o elemento de leitores de tela.
+            POR QUE AQUI: O aria-label do <a> pai já descreve o link.
+              Ler "JCDJ" adicionalmente seria redundante e confuso.
+            REGRA DE OURO: Nunca usar aria-hidden em elementos interativos
+              (botões, inputs, links) — o usuário perderia acesso a eles.
+          -->
+          <span class="logo-dot" aria-hidden="true">.</span>
+        </a>
+
+        <!-- NAVEGAÇÃO PRINCIPAL -->
+        <nav aria-label="Navegação principal" role="navigation">
+          <!--
+            ▸ TAG <nav>
+            O QUE É: Elemento semântico para blocos de NAVEGAÇÃO — grupos
+              de links importantes para navegar no site ou página.
+            QUANDO USAR: Para a navegação principal, breadcrumbs,
+              índice de conteúdo (table of contents).
+            QUANDO NÃO USAR: Para cada grupo de links — footer com
+              links legais, por exemplo, não precisa ser <nav>.
+            ATRIBUTO aria-label="Navegação principal":
+              → Nomeia esta navegação especificamente.
+              → Se houver múltiplas <nav> na página (principal + footer),
+                cada uma precisa de aria-label diferente para que o
+                usuário de leitor de tela possa distingui-las.
+            ATRIBUTO role="navigation":
+              → Redundante com <nav> em HTML5.
+              → Incluído para compatibilidade com browsers antigos
+                que não reconhecem elementos HTML5.
+          -->
+
+          <ul class="nav-lista" role="list">
+            <!--
+              ▸ TAG <ul> (Unordered List)
+              O QUE É: Lista de itens sem ordem específica ou hierarquia.
+              POR QUE LISTA NA NAV: Navegação É semanticamente uma lista.
+                Screen readers anunciam "lista de X itens" — o usuário
+                sabe quantos links existem antes de ouvir todos.
+              ATRIBUTO role="list":
+                → Alguns navegadores (Safari + VoiceOver) removem a
+                  semântica de lista quando list-style: none é aplicado via CSS.
+                → role="list" restaura explicitamente a semântica.
+              HIERARQUIA OBRIGATÓRIA: ul/ol → li → conteúdo
+                ERRADO: <ul><a>link</a></ul>
+                CERTO:  <ul><li><a>link</a></li></ul>
+            -->
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#habilidades">Habilidades</a></li>
+            <li><a href="#projetos">Projetos</a></li>
+            <li><a href="#experiencia">Experiência</a></li>
+            <li><a href="#contato">Contato</a></li>
+            <!--
+              ▸ TAG <li> (List Item)
+              O QUE É: Item individual dentro de <ul> ou <ol>.
+              REGRA: Filhos diretos de <ul>/<ol> DEVEM ser <li>.
+              CONTEÚDO: Um <li> pode conter texto, links, imagens,
+                até outras listas aninhadas (sublistas).
+            -->
+          </ul>
+
+          <!-- Botão hambúrguer para mobile -->
+          <button class="nav-toggle" aria-label="Abrir menu de navegação"
+                  aria-expanded="false" aria-controls="nav-lista-mobile"
+                  type="button">
+            <!--
+              ▸ TAG <button>
+              O QUE É: Elemento interativo para AÇÕES na página.
+              DIFERENÇA de <a>: Links navegam; botões executam ações.
+              AQUI: Abre/fecha o menu mobile — é uma AÇÃO, não navegação.
+              ATRIBUTO type="button":
+                → Dentro de um <form>, <button> sem type age como
+                  type="submit" (envia o formulário!). Especificar
+                  explicitamente evita comportamento inesperado.
+              ATRIBUTO aria-label="Abrir menu de navegação":
+                → O ícone hambúrguer (≡) não tem texto visível.
+                → aria-label fornece descrição para screen readers.
+              ATRIBUTO aria-expanded="false":
+                → Informa o estado do widget controlado.
+                → JavaScript muda para "true" quando o menu abre.
+                → Screen readers anunciam "botão — menu fechado".
+              ATRIBUTO aria-controls="nav-lista-mobile":
+                → Referencia o id do elemento controlado.
+                → Cria relação semântica entre botão e menu.
+            -->
+            <span aria-hidden="true">&#9776;</span>
+            <!-- 
+              ▸ ENTIDADE HTML: &#9776;
+              O QUE É: Referência numérica ao caractere Unicode ☰ (hambúrguer).
+              SINTAXE: &#DECIMAL; ou &#xHEX; ou &nome;
+              OUTROS EXEMPLOS: &amp; (&), &copy; (©), &rarr; (→), &nbsp; (espaço não-quebrável)
+              POR QUE ENTIDADE: Alguns caracteres especiais podem causar
+                problemas de encoding se escritos diretamente.
+            -->
+          </button>
+        </nav>
+
+      </div>
+    </div>
+  </header>
+  <!-- FIM: <header> ─────────────────────── -->
+
+
+  <!-- ════════════════════════════════════════════════
+       MAIN — CONTEÚDO PRINCIPAL DA PÁGINA
+       ════════════════════════════════════════════════ -->
+  <main id="inicio" role="main">
+    <!--
+      ▸ TAG <main>
+      O QUE É: Elemento que envolve o conteúdo PRINCIPAL e ÚNICO da página.
+        Exclui elementos repetidos entre páginas (header, nav, footer).
+      REGRA CRÍTICA: Apenas UM <main> por documento.
+      FUNÇÃO DE ACESSIBILIDADE:
+        → Leitores de tela oferecem atalho "pular para o conteúdo principal"
+          (geralmente tecla de atalho M no NVDA).
+        → Sem <main>, o usuário precisa navegar por todo o header/nav
+          ANTES de ouvir o conteúdo — experiência terrível.
+      ATRIBUTO role="main": Redundante em HTML5, mas garante
+        compatibilidade com assistive technologies mais antigas.
+    -->
+
+
+    <!-- ══════════════════════════════════════
+         SECTION: HERO — Apresentação
+         ══════════════════════════════════════ -->
+    <section class="hero" aria-labelledby="hero-nome">
+      <!--
+        ▸ TAG <section>
+        O QUE É: Agrupamento temático de conteúdo que faz sentido
+          como uma seção de documento.
+        DIFERENÇA de <div>: <section> implica que o conteúdo
+          MERECE um título e seria listado em um sumário da página.
+        DIFERENÇA de <article>: <article> é conteúdo independente
+          (poderia ser distribuído separadamente). <section> é parte
+          de um todo maior.
+        REGRA: Toda <section> deve ter um elemento de heading (h1-h6).
+        ATRIBUTO aria-labelledby="hero-nome":
+          → Associa a seção ao elemento com id="hero-nome".
+          → Screen readers anunciam: "seção — Julio Cesar Demarchi Junior".
+          → Diferença de aria-label: labelledby referencia um elemento
+            existente; label define o texto diretamente.
+      -->
+
+      <div class="container">
+        <div class="hero-content">
+
+          <div class="hero-texto">
+            <p class="hero-badge">
+              <span aria-hidden="true">⚡</span>
+              Disponível para oportunidades
+            </p>
+
+            <h1 id="hero-nome" class="hero-titulo">
+              <!--
+                ▸ TAG <h1>
+                O QUE É: Título de nível 1 — o mais importante da página.
+                REGRA FUNDAMENTAL: APENAS UM <h1> por página.
+                HIERARQUIA DE HEADINGS:
+                  h1 → Título da página inteira
+                  h2 → Seções principais (Sobre, Projetos, Contato)
+                  h3 → Subseções (dentro de Projetos: cada projeto)
+                  h4 → Sub-subseções
+                  h5, h6 → Raramente necessários
+                NUNCA PULAR NÍVEIS: h1 → h3 sem h2 é ERRADO.
+                  Isso quebra a estrutura de navegação por headings.
+                ACESSIBILIDADE: Screen readers permitem navegar entre
+                  headings com teclas de atalho (H no NVDA/JAWS).
+                  Os headings formam o "índice" sonoro da página.
+                SEO: O h1 é fortemente considerado pelos motores de busca
+                  para entender o tema da página.
+              -->
+              Julio Cesar<br>
+              <!--
+                ▸ TAG <br>
+                O QUE É: Quebra de linha forçada.
+                QUANDO USAR: Apenas quando a quebra de linha É parte
+                  integrante do conteúdo — poesia, endereços, nomes em
+                  múltiplas linhas por escolha de design.
+                QUANDO NÃO USAR: Para criar espaçamento visual.
+                  Use margin/padding no CSS.
+                SEMÂNTICA: Screen readers NÃO fazem pausa em <br>.
+                  Para pausa real, use pontuação ou elementos de bloco.
+              -->
+              <span class="hero-sobrenome">Demarchi Junior</span>
+            </h1>
+
+            <p class="hero-cargo">
+              <span class="cargo-icone" aria-hidden="true">&lt;</span>
+              Engenheiro de Software Júnior
+              <span class="cargo-icone" aria-hidden="true">/&gt;</span>
+              <!--
+                ▸ ENTIDADES HTML &lt; e &gt;
+                O QUE É: &lt; = < (less than), &gt; = > (greater than)
+                POR QUE ENTIDADES: Os caracteres < e > têm significado
+                  especial em HTML (abertura/fechamento de tags).
+                  Usá-los diretamente pode confundir o parser.
+                REGRA: Sempre usar entidades para < > & em texto.
+                OUTROS ESSENCIAIS: &amp; (&), &quot; ("), &apos; (')
+              -->
+            </p>
+
+            <p class="hero-descricao">
+              Desenvolvedor apaixonado por código limpo, semântica HTML e
+              interfaces acessíveis. Focado em construir fundações sólidas
+              antes de qualquer framework ou biblioteca.
+            </p>
+
+            <div class="hero-acoes" role="group" aria-label="Ações principais da página">
+              <!--
+                ▸ role="group"
+                O QUE É: Agrupa elementos relacionados semanticamente.
+                POR QUE: Screen readers podem anunciar "grupo: Ações
+                  principais da página" antes de ler os botões,
+                  preparando o usuário para o contexto.
+              -->
+
+              <a href="#projetos" class="btn btn-primario">
+                Ver projetos
+                <span aria-hidden="true" class="btn-icone">→</span>
+              </a>
+              <!--
+                ▸ <a> como BOTÃO VISUAL
+                QUANDO USAR: Quando a ação é NAVEGAR para outro lugar.
+                  Aqui navega para #projetos — link é correto.
+                DIFERENÇA CRÍTICA:
+                  <a href="..."> → navega para destino
+                  <button>       → executa ação JavaScript
+                ERRO COMUM: Usar <div> ou <span> com onclick —
+                  isso quebra acessibilidade por teclado e screen reader.
+              -->
+
+              <a href="#contato" class="btn btn-secundario">
+                Entre em contato
+              </a>
+
+              <a href="assets/cv-julio-demarchi.pdf" class="btn btn-ghost"
+                 download aria-label="Baixar currículo de Julio Demarchi em PDF">
+                <span aria-hidden="true">↓</span> Currículo
+              </a>
+              <!--
+                ▸ ATRIBUTO download
+                O QUE FAZ: Faz o navegador baixar o arquivo ao clicar,
+                  em vez de abrir no browser.
+                VALOR OPCIONAL: download="nome-personalizado.pdf"
+                  define o nome do arquivo baixado.
+                SEGURANÇA: Funciona apenas para arquivos do mesmo domínio
+                  (same-origin). Para outros domínios, o navegador ignora.
+                aria-label: Descreve que o link baixa um PDF — o usuário
+                  de screen reader sabe o que esperar.
+              -->
+            </div>
+          </div>
+
+          <div class="hero-imagem-wrapper">
+            <div class="hero-imagem-container">
+              <img
+                src="https://avatars.githubusercontent.com/u/583231?v=4"
+                alt="Foto de Julio Cesar Demarchi Junior, Engenheiro de Software Júnior"
+                class="hero-foto"
+                width="340"
+                height="340"
+                loading="eager"
+              >
+              <!--
+                ▸ TAG <img>
+                O QUE É: Incorpora uma imagem no documento.
+                ATRIBUTOS OBRIGATÓRIOS:
+                  src  → caminho/URL da imagem
+                  alt  → texto alternativo (FUNDAMENTAL para acessibilidade)
+
+                ▸ ATRIBUTO alt — REGRA MAIS IMPORTANTE DE IMAGENS
+                O QUE FAZ: Texto lido por screen readers no lugar da imagem.
+                  Também exibido quando a imagem não carrega.
+                COMO ESCREVER:
+                  → Imagem informativa: descreva o conteúdo
+                    alt="Foto de Julio Cesar Demarchi Junior, sorrindo, em ambiente profissional"
+                  → Imagem decorativa: alt="" (vazio, NÃO omitir o atributo!)
+                    Se omitir o atributo, o screen reader lê o nome do arquivo.
+                  → Ícone funcional: descreva a FUNÇÃO, não a aparência
+                    alt="Buscar" (não alt="Ícone de lupa")
+                  → Gráfico/infográfico: descreva os dados importantes
+                WCAG 1.1.1: Critério de nível A (básico) — alt em imagens
+                  é OBRIGATÓRIO para qualquer site acessível.
+
+                ATRIBUTOS DE PERFORMANCE:
+                  width/height  → Dimensões em pixels. CRÍTICO para CLS
+                    (Cumulative Layout Shift — Core Web Vital).
+                    Sem eles, o browser não sabe o espaço a reservar e
+                    a página "pula" quando a imagem carrega.
+                  loading="eager"  → Carrega imediatamente (padrão).
+                    Use loading="lazy" para imagens abaixo da dobra
+                    (fora da viewport inicial) — economiza banda.
+              -->
+              <div class="hero-imagem-badge" aria-hidden="true">
+                <span>🚀</span>
+              </div>
+            </div>
+
+            <!-- Dado estruturado visual — tecnologias flutuantes -->
+            <div class="tech-float tech-float-1" aria-hidden="true">HTML5</div>
+            <div class="tech-float tech-float-2" aria-hidden="true">CSS3</div>
+            <div class="tech-float tech-float-3" aria-hidden="true">JS</div>
+            <!--
+              ▸ aria-hidden="true" em elementos decorativos
+              ESTES ELEMENTOS são puramente visuais/decorativos.
+              Lê-los não agrega informação — apenas confundiria o usuário
+              de screen reader. aria-hidden="true" os oculta completamente
+              da árvore de acessibilidade.
+            -->
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <!-- FIM: section.hero ─────────────────── -->
+
+
+    <!-- ══════════════════════════════════════
+         SECTION: SOBRE — Quem sou eu
+         ══════════════════════════════════════ -->
+    <section id="sobre" class="secao secao-sobre" aria-labelledby="titulo-sobre">
+
+      <div class="container">
+
+        <header class="secao-header">
+          <!--
+            ▸ <header> DENTRO DE <section>
+            O QUE É: Cabeçalho contextual da seção — contém o título
+              e metainformações desta seção específica.
+            VÁLIDO: Múltiplos <header> em uma página são válidos quando
+              cada um está dentro de um <section> ou <article>.
+            DIFERENÇA do <header> do site: O <header> do site tem
+              role="banner" e é o cabeçalho global. Este é contextual.
+          -->
+          <span class="secao-numero" aria-hidden="true">01</span>
+          <h2 id="titulo-sobre" class="secao-titulo">Sobre mim</h2>
+          <!--
+            ▸ TAG <h2>
+            HIERARQUIA: Após o <h1> (nome do portfólio), as seções
+              principais são <h2>. Subconteúdos dentro serão <h3>.
+            NUNCA: Usar headings apenas para tamanho visual.
+              Use CSS para tamanho. Headings têm significado semântico.
+          -->
+          <div class="secao-linha" aria-hidden="true"></div>
+        </header>
+
+        <div class="sobre-grid">
+          <div class="sobre-texto">
+            <p>
+              Olá! Sou <strong>Julio Cesar Demarchi Junior</strong>, engenheiro de
+              software júnior com foco em desenvolvimento web. Acredito que a base
+              de qualquer aplicação excelente começa com HTML semântico e correto.
+            </p>
+            <!--
+              ▸ TAG <strong>
+              O QUE É: Ênfase FORTE — indica que o conteúdo é de alta importância.
+              SEMÂNTICA: Screen readers geralmente entonam diferente ao ler <strong>.
+              DIFERENÇA de <b>: <b> é apenas visual (negrito sem significado).
+                <strong> tem significado semântico — use <strong>.
+              DIFERENÇA de <em>: <em> = ênfase média (entonação).
+                <strong> = importância crítica, atenção obrigatória.
+            -->
+
+            <p>
+              Estou em constante aprendizado, construindo projetos práticos e
+              mergulhando nas boas práticas da web — desde acessibilidade até
+              <em>performance</em> e segurança.
+            </p>
+            <!--
+              ▸ TAG <em>
+              O QUE É: Ênfase semântica — indica mudança de entonação.
+              SEMÂNTICA: Screen readers ajustam a entonação ao ler <em>.
+              DIFERENÇA de <i>: <i> é apenas visual (itálico sem significado).
+                Use <em> para ênfase real; <i> para termos técnicos,
+                títulos de obras ou termos em outro idioma.
+            -->
+
+            <p>
+              Quando não estou codando, estou lendo sobre arquitetura de software,
+              contribuindo para projetos open source ou explorando como a web
+              pode ser mais inclusiva para todos.
+            </p>
+
+            <div class="sobre-info-grid">
+              <dl class="info-lista">
+                <!--
+                  ▸ TAG <dl> (Description List)
+                  O QUE É: Lista de definições — pares de termo:descrição.
+                  QUANDO USAR: Glossários, metadados, pares chave-valor.
+                  ESTRUTURA: dl > dt + dd (um ou mais dd por dt)
+                  SEMÂNTICA: Screen readers anunciam o termo antes da definição.
+                  DIFERENÇA de <ul>/<ol>: Listas simples de itens.
+                    <dl> é para pares de dados relacionados.
+                -->
+                <div class="info-item">
+                  <dt>Localização</dt>
+                  <!--
+                    ▸ TAG <dt> (Description Term)
+                    O QUE É: O "rótulo" ou "chave" do par de definição.
+                  -->
+                  <dd>Brasil</dd>
+                  <!--
+                    ▸ TAG <dd> (Description Details)
+                    O QUE É: O "valor" ou "descrição" do termo.
+                  -->
+                </div>
+                <div class="info-item">
+                  <dt>Foco</dt>
+                  <dd>Frontend / Web</dd>
+                </div>
+                <div class="info-item">
+                  <dt>Status</dt>
+                  <dd>
+                    <span class="status-disponivel">
+                      <span class="status-dot" aria-hidden="true"></span>
+                      Disponível
+                    </span>
+                  </dd>
+                </div>
+                <div class="info-item">
+                  <dt>Idiomas</dt>
+                  <dd>PT-BR, EN</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+
+          <!-- Destaques com ícones -->
+          <div class="sobre-destaques">
+            <div class="destaque-card">
+              <span class="destaque-icone" aria-hidden="true">
+                <i class="fas fa-code" aria-hidden="true"></i>
+              </span>
+              <!--
+                ▸ Font Awesome Icons
+                O QUE É: Ícones são inseridos via classes CSS em elementos <i>.
+                ATRIBUTO aria-hidden="true":
+                  → Ícones são VISUAIS — screen readers não devem lê-los.
+                  → Sem aria-hidden, o VoiceOver leria "fa-code" (inútil).
+                REGRA: Todo ícone funcional precisa de texto alternativo.
+                  Ícone decorativo → aria-hidden="true"
+                  Ícone de botão   → aria-label no elemento pai
+              -->
+              <h3>Código Limpo</h3>
+              <p>Escrevendo HTML semântico e CSS organizado desde o primeiro arquivo.</p>
+            </div>
+            <div class="destaque-card">
+              <span class="destaque-icone" aria-hidden="true">
+                <i class="fas fa-universal-access" aria-hidden="true"></i>
+              </span>
+              <h3>Acessibilidade</h3>
+              <p>Web inclusiva é o padrão, não uma feature extra.</p>
+            </div>
+            <div class="destaque-card">
+              <span class="destaque-icone" aria-hidden="true">
+                <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+              </span>
+              <h3>Mobile First</h3>
+              <p>Projetos que funcionam em qualquer dispositivo e tamanho de tela.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <!-- FIM: section#sobre ─────────────────── -->
+
+
+    <!-- ══════════════════════════════════════
+         SECTION: HABILIDADES — Skills
+         ══════════════════════════════════════ -->
+    <section id="habilidades" class="secao secao-habilidades" aria-labelledby="titulo-habilidades">
+
+      <div class="container">
+        <header class="secao-header">
+          <span class="secao-numero" aria-hidden="true">02</span>
+          <h2 id="titulo-habilidades" class="secao-titulo">Habilidades</h2>
+          <div class="secao-linha" aria-hidden="true"></div>
+        </header>
+
+        <!-- TABELA DE HABILIDADES -->
+        <div class="tabela-wrapper" role="region" aria-label="Tabela de habilidades técnicas" tabindex="0">
+          <!--
+            ▸ role="region" + aria-label + tabindex="0"
+            PATTERN: Para tabelas que podem ser maiores que a viewport em mobile,
+              um wrapper com overflow-x: auto permite scroll horizontal.
+              tabindex="0" torna o wrapper focável pelo teclado — o usuário
+              pode scrollar com as setas mesmo sem mouse.
+            role="region" + aria-label: Define a região como um landmark
+              nomeado, ajudando o usuário de screen reader a entender o contexto.
+          -->
+
+          <table class="tabela-habilidades">
+            <!--
+              ▸ TAG <table>
+              O QUE É: Elemento para dados TABULARES — informação que faz
+                sentido em linhas e colunas (como uma planilha).
+              QUANDO USAR: Horários, comparações, dados financeiros, relatórios.
+              QUANDO NÃO USAR: Para LAYOUT visual — isso é um crime histórico
+                do HTML dos anos 90. Use CSS Grid ou Flexbox para layout.
+              ESTRUTURA CORRETA:
+                table
+                ├── caption (título da tabela — opcional mas recomendado)
+                ├── thead (cabeçalho)
+                │   └── tr > th
+                ├── tbody (corpo)
+                │   └── tr > td
+                └── tfoot (rodapé — opcional)
+                    └── tr > td
+            -->
+
+            <caption class="tabela-caption">
+              Habilidades técnicas de Julio Cesar Demarchi Junior
+            </caption>
+            <!--
+              ▸ TAG <caption>
+              O QUE É: Título descritivo da tabela — primeiro elemento dentro de <table>.
+              ACESSIBILIDADE: Screen readers leem o caption ao entrar na tabela.
+                Essencial para que o usuário entenda o propósito dos dados.
+              VISUAL: Por padrão aparece acima da tabela. Pode ser posicionado
+                com CSS caption-side: bottom.
+              ALTERNATIVA: aria-label na <table> (menos semântico).
+            -->
+
+            <thead>
+              <!--
+                ▸ TAG <thead>
+                O QUE É: Agrupa as linhas de cabeçalho da tabela.
+                POR QUE USAR: Semântico — diferencia cabeçalhos de dados.
+                  Em tabelas longas com scroll, o thead pode ficar fixo.
+                  Screen readers anunciam o contexto dos cabeçalhos.
+              -->
+              <tr>
+                <!--
+                  ▸ TAG <tr> (Table Row)
+                  O QUE É: Uma linha da tabela.
+                  CONTÉM: <th> (cabeçalho) ou <td> (dado), nunca misturar
+                    <th> e <td> na mesma linha de cabeçalho.
+                -->
+                <th scope="col">Tecnologia</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Nível</th>
+                <th scope="col">Experiência</th>
+                <!--
+                  ▸ TAG <th> (Table Header)
+                  O QUE É: Célula de cabeçalho — define o título de uma
+                    coluna ou linha.
+                  ATRIBUTO scope:
+                    scope="col" → este th é cabeçalho de uma COLUNA
+                    scope="row" → este th é cabeçalho de uma LINHA
+                    scope="colgroup" → cabeçalho de grupo de colunas
+                  POR QUE scope É CRÍTICO:
+                    Screen readers associam cada célula <td> ao seu <th>.
+                    Com scope correto: "HTML5 — Tecnologia, Frontend — Categoria,
+                    Avançado — Nível, 2 anos — Experiência".
+                    Sem scope: o usuário não sabe a que coluna pertence o dado.
+                  DIFERENÇA de <td>: <th> tem peso semântico de cabeçalho.
+                    Visualmente em negrito por padrão, mas isso é irrelevante —
+                    o que importa é a semântica.
+                -->
+              </tr>
+            </thead>
+
+            <tbody>
+              <!--
+                ▸ TAG <tbody>
+                O QUE É: Agrupa as linhas de dados da tabela.
+                MÚLTIPLOS tbody: Uma <table> pode ter vários <tbody>
+                  para agrupar seções de dados diferentes.
+              -->
+              <tr>
+                <td>HTML5</td>
+                <!--
+                  ▸ TAG <td> (Table Data)
+                  O QUE É: Célula de dado — conteúdo real da tabela.
+                  PODE CONTER: Qualquer conteúdo HTML — texto, imagens,
+                    links, botões, outros elementos.
+                  ATRIBUTOS ÚTEIS:
+                    colspan="2" → célula ocupa 2 colunas
+                    rowspan="3" → célula ocupa 3 linhas
+                -->
+                <td>Frontend</td>
+                <td>
+                  <div class="nivel-barra" role="progressbar"
+                       aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"
+                       aria-label="Nível HTML5: 85%">
+                    <!--
+                      ▸ role="progressbar" com ARIA
+                      O QUE É: Barra visual de progresso acessível.
+                      aria-valuenow: valor atual (85%)
+                      aria-valuemin: valor mínimo (0%)
+                      aria-valuemax: valor máximo (100%)
+                      aria-label: descrição legível do que representa
+                      SEM ESTES ATRIBUTOS: Screen reader leria apenas
+                        o elemento sem contexto (inútil para o usuário).
+                    -->
+                    <div class="nivel-fill" style="--nivel: 85%"></div>
+                  </div>
+                </td>
+                <td>2 anos</td>
+              </tr>
+              <tr>
+                <td>CSS3 / Flexbox / Grid</td>
+                <td>Frontend</td>
+                <td>
+                  <div class="nivel-barra" role="progressbar"
+                       aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
+                       aria-label="Nível CSS3: 80%">
+                    <div class="nivel-fill" style="--nivel: 80%"></div>
+                  </div>
+                </td>
+                <td>2 anos</td>
+              </tr>
+              <tr>
+                <td>JavaScript ES6+</td>
+                <td>Frontend</td>
+                <td>
+                  <div class="nivel-barra" role="progressbar"
+                       aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+                       aria-label="Nível JavaScript: 70%">
+                    <div class="nivel-fill" style="--nivel: 70%"></div>
+                  </div>
+                </td>
+                <td>1.5 anos</td>
+              </tr>
+              <tr>
+                <td>React.js</td>
+                <td>Framework</td>
+                <td>
+                  <div class="nivel-barra" role="progressbar"
+                       aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                       aria-label="Nível React: 60%">
+                    <div class="nivel-fill" style="--nivel: 60%"></div>
+                  </div>
+                </td>
+                <td>1 ano</td>
+              </tr>
+              <tr>
+                <td>Git & GitHub</td>
+                <td>Ferramentas</td>
+                <td>
+                  <div class="nivel-barra" role="progressbar"
+                       aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
+                       aria-label="Nível Git: 75%">
+                    <div class="nivel-fill" style="--nivel: 75%"></div>
+                  </div>
+                </td>
+                <td>2 anos</td>
+              </tr>
+              <tr>
+                <td>Acessibilidade (a11y)</td>
+                <td>Boas Práticas</td>
+                <td>
+                  <div class="nivel-barra" role="progressbar"
+                       aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+                       aria-label="Nível Acessibilidade: 70%">
+                    <div class="nivel-fill" style="--nivel: 70%"></div>
+                  </div>
+                </td>
+                <td>1.5 anos</td>
+              </tr>
+            </tbody>
+
+            <tfoot>
+              <!--
+                ▸ TAG <tfoot>
+                O QUE É: Rodapé da tabela — geralmente totais, notas ou
+                  informações resumidas.
+                RENDERIZAÇÃO: Browsers podem renderizar tfoot antes de tbody
+                  durante carregamento — permite ver totais mesmo em tabelas longas.
+              -->
+              <tr>
+                <td colspan="4" class="tabela-nota">
+                  <!--
+                    ▸ ATRIBUTO colspan="4"
+                    O QUE FAZ: A célula ocupa 4 colunas (todas as colunas da tabela).
+                    ROWSPAN: Equivalente vertical — célula ocupa múltiplas linhas.
+                    USO COMUM: Totais, notas que abrangem toda a largura da tabela.
+                  -->
+                  <i class="fas fa-info-circle" aria-hidden="true"></i>
+                  Níveis baseados em autoavaliação. Em aprendizado contínuo.
+                </td>
+              </tr>
+            </tfoot>
+
+          </table>
+        </div>
+        <!-- FIM: tabela de habilidades -->
+
+      </div>
+    </section>
+    <!-- FIM: section#habilidades ─────────────── -->
+
+
+    <!-- ══════════════════════════════════════
+         SECTION: PROJETOS
+         ══════════════════════════════════════ -->
+    <section id="projetos" class="secao secao-projetos" aria-labelledby="titulo-projetos">
+
+      <div class="container">
+        <header class="secao-header">
+          <span class="secao-numero" aria-hidden="true">03</span>
+          <h2 id="titulo-projetos" class="secao-titulo">Projetos</h2>
+          <div class="secao-linha" aria-hidden="true"></div>
+        </header>
+
+        <!-- FILTRO DE PROJETOS -->
+        <div class="projetos-filtros" role="group" aria-label="Filtrar projetos por tecnologia">
+          <button class="filtro-btn filtro-ativo" data-filtro="todos"
+                  aria-pressed="true" type="button">
+            Todos
+          </button>
+          <!--
+            ▸ ATRIBUTO aria-pressed
+            O QUE É: Estado de botão toggle (ativado/desativado).
+            VALORES: "true" (pressionado/ativo) | "false" (inativo)
+            DIFERENÇA de aria-expanded: aria-pressed é para botões toggle.
+              aria-expanded é para widgets que mostram/escondem conteúdo.
+            JAVASCRIPT: Atualiza aria-pressed ao clicar.
+            SCREEN READER: Anuncia "Todos, botão, pressionado" ou "não pressionado".
+          -->
+          <button class="filtro-btn" data-filtro="html-css"
+                  aria-pressed="false" type="button">HTML/CSS</button>
+          <button class="filtro-btn" data-filtro="javascript"
+                  aria-pressed="false" type="button">JavaScript</button>
+          <button class="filtro-btn" data-filtro="react"
+                  aria-pressed="false" type="button">React</button>
+        </div>
+
+        <!-- GRID DE PROJETOS -->
+        <div class="projetos-grid" id="projetos-grid"
+             aria-live="polite" aria-atomic="false">
+          <!--
+            ▸ aria-live="polite"
+            O QUE É: Região dinâmica — anuncia mudanças para screen readers.
+            VALORES:
+              "polite"     → Anuncia após o usuário terminar a ação atual
+              "assertive"  → Interrompe imediatamente (para alertas críticos)
+              "off"        → Não anuncia mudanças (padrão)
+            POR QUE AQUI: Quando o JS filtra os projetos, o screen reader
+              precisa saber que o conteúdo mudou.
+            aria-atomic="false": Anuncia apenas os itens que mudaram,
+              não a região inteira.
+          -->
+
+          <!-- PROJETO 1 -->
+          <article class="projeto-card" data-categoria="html-css"
+                   aria-labelledby="projeto-1-titulo">
+            <!--
+              ▸ TAG <article>
+              O QUE É: Conteúdo INDEPENDENTE e AUTO-SUFICIENTE — poderia
+                ser removido do contexto e ainda fazer sentido completo.
+              EXEMPLOS: Posts de blog, cards de produto, tweets, itens de feed.
+              DIFERENÇA de <section>:
+                <section> = parte de um todo (capítulo de livro)
+                <article> = conteúdo completo em si mesmo (o livro inteiro)
+              PODE CONTER <section>: Um artigo pode ter seções internas.
+              PODE ESTAR DENTRO DE <section>: Uma seção de projetos
+                contém múltiplos artigos (cada projeto).
+              ATRIBUTO data-categoria: Atributo customizado para JavaScript.
+                Permite filtrar cards sem usar classes CSS.
+            -->
+
+            <div class="projeto-imagem">
+              <img
+                src="https://via.placeholder.com/400x220/1a1a2e/6c63ff?text=HTML+Semântico"
+                alt="Screenshot do projeto: página de portfólio com estrutura HTML semântica visível no DevTools"
+                class="projeto-img"
+                width="400"
+                height="220"
+                loading="lazy"
+              >
+              <!--
+                ▸ loading="lazy"
+                O QUE FAZ: Adia o carregamento da imagem até que ela
+                  esteja próxima da viewport (área visível).
+                QUANDO USAR: Imagens "abaixo da dobra" — fora da área
+                  visível inicial da página.
+                BENEFÍCIO: Reduz o tempo de carregamento inicial.
+                  Imagens não vistas nunca são baixadas.
+                QUANDO NÃO USAR: Imagem do hero (sempre visível) — use
+                  loading="eager" ou omita (eager é o padrão).
+              -->
+              <div class="projeto-overlay" aria-hidden="true">
+                <span>Ver detalhes</span>
+              </div>
+            </div>
+
+            <div class="projeto-conteudo">
+              <div class="projeto-topo">
+                <h3 id="projeto-1-titulo" class="projeto-titulo">
+                  HTML Semântico — Portfólio
+                </h3>
+                <!--
+                  ▸ id no <h3>
+                  Referenciado pelo aria-labelledby do <article> pai.
+                  Quando o screen reader entra no artigo, anuncia
+                  "artigo — HTML Semântico — Portfólio".
+                -->
+                <ul class="projeto-tags" role="list" aria-label="Tecnologias usadas">
+                  <li class="tag tag-html">HTML5</li>
+                  <li class="tag tag-css">CSS3</li>
+                </ul>
+              </div>
+              <p class="projeto-descricao">
+                Portfólio pessoal focado em estrutura semântica correta,
+                acessibilidade WCAG 2.1 e CSS moderno sem frameworks.
+              </p>
+              <div class="projeto-links">
+                <a href="#" class="projeto-link"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-label="Ver código do projeto HTML Semântico no GitHub (abre em nova aba)">
+                  <i class="fab fa-github" aria-hidden="true"></i>
+                  GitHub
+                </a>
+                <!--
+                  ▸ rel="noopener noreferrer" — SEGURANÇA OBRIGATÓRIA
+                  PROBLEMA: Links com target="_blank" abriam a nova aba
+                    com acesso a window.opener — a página aberta poderia
+                    redirecionar a aba original para phishing ("tabnapping").
+                  SOLUÇÃO:
+                    noopener   → remove acesso a window.opener (segurança)
+                    noreferrer → não envia cabeçalho Referer (privacidade)
+                  REGRA: SEMPRE usar rel="noopener noreferrer" com target="_blank".
+                  BROWSERS MODERNOS: Já aplicam noopener por padrão,
+                    mas manter explicitamente é boa prática.
+                  aria-label: "(abre em nova aba)" alerta o screen reader
+                    do usuário sobre o comportamento do link.
+                -->
+                <a href="#" class="projeto-link projeto-link-demo"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-label="Ver demonstração ao vivo do projeto HTML Semântico (abre em nova aba)">
+                  <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                  Demo
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROJETO 2 -->
+          <article class="projeto-card" data-categoria="javascript"
+                   aria-labelledby="projeto-2-titulo">
+            <div class="projeto-imagem">
+              <img
+                src="https://via.placeholder.com/400x220/0f3460/e94560?text=To-Do+App"
+                alt="Screenshot do projeto To-Do App mostrando lista de tarefas com filtros de status"
+                class="projeto-img"
+                width="400"
+                height="220"
+                loading="lazy"
+              >
+              <div class="projeto-overlay" aria-hidden="true">
+                <span>Ver detalhes</span>
+              </div>
+            </div>
+            <div class="projeto-conteudo">
+              <div class="projeto-topo">
+                <h3 id="projeto-2-titulo" class="projeto-titulo">To-Do App Acessível</h3>
+                <ul class="projeto-tags" role="list" aria-label="Tecnologias usadas">
+                  <li class="tag tag-js">JavaScript</li>
+                  <li class="tag tag-html">HTML5</li>
+                </ul>
+              </div>
+              <p class="projeto-descricao">
+                Gerenciador de tarefas com CRUD completo, persistência em
+                localStorage, filtros e 100% navegável por teclado.
+              </p>
+              <div class="projeto-links">
+                <a href="#" class="projeto-link"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-label="Ver código do To-Do App no GitHub (abre em nova aba)">
+                  <i class="fab fa-github" aria-hidden="true"></i> GitHub
+                </a>
+                <a href="#" class="projeto-link projeto-link-demo"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-label="Ver demonstração ao vivo do To-Do App (abre em nova aba)">
+                  <i class="fas fa-external-link-alt" aria-hidden="true"></i> Demo
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROJETO 3 -->
+          <article class="projeto-card" data-categoria="react"
+                   aria-labelledby="projeto-3-titulo">
+            <div class="projeto-imagem">
+              <img
+                src="https://via.placeholder.com/400x220/16213e/0f3460?text=Weather+App"
+                alt="Screenshot do Weather App exibindo temperatura, umidade e previsão de 5 dias"
+                class="projeto-img"
+                width="400"
+                height="220"
+                loading="lazy"
+              >
+              <div class="projeto-overlay" aria-hidden="true">
+                <span>Ver detalhes</span>
+              </div>
+            </div>
+            <div class="projeto-conteudo">
+              <div class="projeto-topo">
+                <h3 id="projeto-3-titulo" class="projeto-titulo">Weather Dashboard</h3>
+                <ul class="projeto-tags" role="list" aria-label="Tecnologias usadas">
+                  <li class="tag tag-react">React</li>
+                  <li class="tag tag-js">API REST</li>
+                </ul>
+              </div>
+              <p class="projeto-descricao">
+                Dashboard de clima consumindo a API OpenWeatherMap com
+                geolocalização, previsão estendida e modo escuro.
+              </p>
+              <div class="projeto-links">
+                <a href="#" class="projeto-link"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-label="Ver código do Weather Dashboard no GitHub (abre em nova aba)">
+                  <i class="fab fa-github" aria-hidden="true"></i> GitHub
+                </a>
+                <a href="#" class="projeto-link projeto-link-demo"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-label="Ver demonstração ao vivo do Weather Dashboard (abre em nova aba)">
+                  <i class="fas fa-external-link-alt" aria-hidden="true"></i> Demo
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+        <!-- FIM: projetos-grid -->
+
+      </div>
+    </section>
+    <!-- FIM: section#projetos ─────────────── -->
+
+
+    <!-- ══════════════════════════════════════
+         SECTION: EXPERIÊNCIA — Timeline
+         ══════════════════════════════════════ -->
+    <section id="experiencia" class="secao secao-experiencia" aria-labelledby="titulo-experiencia">
+
+      <div class="container">
+        <header class="secao-header">
+          <span class="secao-numero" aria-hidden="true">04</span>
+          <h2 id="titulo-experiencia" class="secao-titulo">Experiência</h2>
+          <div class="secao-linha" aria-hidden="true"></div>
+        </header>
+
+        <ol class="timeline" role="list">
+          <!--
+            ▸ TAG <ol> (Ordered List)
+            O QUE É: Lista ORDENADA — a ordem dos itens tem significado.
+            QUANDO USAR: Passos de um processo, rankings, cronologias.
+            DIFERENÇA de <ul>: <ul> = ordem não importa; <ol> = ordem importa.
+            AQUI: Uma timeline é cronológica — a ordem É parte da semântica.
+            ATRIBUTOS:
+              start="3" → começa a contagem em 3 (padrão: 1)
+              reversed  → contagem regressiva
+            ESTILO: Os números são removidos com CSS (list-style: none)
+              mas a semântica ordenada permanece.
+          -->
+
+          <li class="timeline-item">
+            <div class="timeline-data">
+              <time datetime="2023-06" class="timeline-periodo">
+                Jun 2023 — Presente
+              </time>
+              <!--
+                ▸ TAG <time>
+                O QUE É: Representa data/hora de forma legível por MÁQUINAS.
+                ATRIBUTO datetime: Formato padronizado ISO 8601.
+                  FORMATOS:
+                    "2024-03-15"          → data completa
+                    "2024-03"             → mês/ano
+                    "2024"                → apenas ano
+                    "2024-03-15T14:30"    → data e hora
+                    "P2Y"                 → duração de 2 anos
+                O CONTEÚDO VISÍVEL pode ser qualquer texto legível por humanos.
+                POR QUE USAR: Motores de busca, parsers e ferramentas
+                  entendem o dado como data real, não texto aleatório.
+                  Permite rich snippets no Google ("evento às 14h").
+              -->
+            </div>
+            <div class="timeline-conteudo">
+              <h3 class="timeline-cargo">Desenvolvedor Frontend — Freelancer</h3>
+              <p class="timeline-empresa">Projetos Independentes</p>
+              <ul class="timeline-lista" role="list">
+                <li>Desenvolvimento de landing pages com HTML semântico e CSS responsivo</li>
+                <li>Implementação de formulários acessíveis com validação JavaScript</li>
+                <li>Otimização de performance (Core Web Vitals) em sites existentes</li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="timeline-item">
+            <div class="timeline-data">
+              <time datetime="2022-01" class="timeline-periodo">Jan 2022 — Mai 2023</time>
+            </div>
+            <div class="timeline-conteudo">
+              <h3 class="timeline-cargo">Estagiário de Desenvolvimento Web</h3>
+              <p class="timeline-empresa">Startup de Tecnologia</p>
+              <ul class="timeline-lista" role="list">
+                <li>Manutenção e evolução de componentes HTML/CSS da plataforma</li>
+                <li>Colaboração com designers para implementar protótipos Figma</li>
+                <li>Participação em code reviews e adoção de Git Flow</li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="timeline-item">
+            <div class="timeline-data">
+              <time datetime="2021" class="timeline-periodo">2021</time>
+            </div>
+            <div class="timeline-conteudo">
+              <h3 class="timeline-cargo">Início da Jornada</h3>
+              <p class="timeline-empresa">Autodidata + Cursos Online</p>
+              <ul class="timeline-lista" role="list">
+                <li>Primeiros projetos em HTML, CSS e JavaScript</li>
+                <li>Conclusão de cursos de Frontend (freeCodeCamp, Alura)</li>
+                <li>Criação de perfil GitHub e primeiros repositórios públicos</li>
+              </ul>
+            </div>
+          </li>
+
+        </ol>
+      </div>
+    </section>
+    <!-- FIM: section#experiencia ─────────────── -->
+
+
+    <!-- ══════════════════════════════════════
+         SECTION: CONTATO — Formulário
+         ══════════════════════════════════════ -->
+    <section id="contato" class="secao secao-contato" aria-labelledby="titulo-contato">
+
+      <div class="container">
+        <header class="secao-header">
+          <span class="secao-numero" aria-hidden="true">05</span>
+          <h2 id="titulo-contato" class="secao-titulo">Contato</h2>
+          <div class="secao-linha" aria-hidden="true"></div>
+        </header>
+
+        <div class="contato-grid">
+
+          <!-- INFORMAÇÕES DE CONTATO -->
+          <div class="contato-info">
+            <p class="contato-intro">
+              Estou aberto a oportunidades, colaborações e projetos interessantes.
+              Me envie uma mensagem — respondo em até 24 horas.
+            </p>
+
+            <address class="contato-endereco">
+              <!--
+                ▸ TAG <address>
+                O QUE É: Informações de contato do autor ou proprietário
+                  do documento/seção mais próxima.
+                CONTEÚDO: Email, telefone, redes sociais, endereço físico —
+                  qualquer forma de contato.
+                NÃO É: Endereço postal genérico (use <p> para isso).
+                ONDE COLOCAR: Dentro do <footer> global ou próximo ao
+                  conteúdo do autor (dentro de <article> por exemplo).
+                RENDERIZAÇÃO: Browsers geralmente aplicam itálico por padrão.
+                  Redefina no CSS se não desejar.
+              -->
+
+              <a href="mailto:julio.demarchi@email.com" class="contato-link"
+                 aria-label="Enviar email para julio.demarchi@email.com">
+                <span class="contato-link-icone">
+                  <i class="fas fa-envelope" aria-hidden="true"></i>
+                </span>
+                <span>julio.demarchi@email.com</span>
+              </a>
+
+              <a href="https://github.com/julio-demarchi"
+                 class="contato-link"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 aria-label="Visitar perfil de Julio Demarchi no GitHub (abre em nova aba)">
+                <span class="contato-link-icone">
+                  <i class="fab fa-github" aria-hidden="true"></i>
+                </span>
+                <span>github.com/julio-demarchi</span>
+              </a>
+
+              <a href="https://linkedin.com/in/julio-demarchi"
+                 class="contato-link"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 aria-label="Visitar perfil de Julio Demarchi no LinkedIn (abre em nova aba)">
+                <span class="contato-link-icone">
+                  <i class="fab fa-linkedin" aria-hidden="true"></i>
+                </span>
+                <span>linkedin.com/in/julio-demarchi</span>
+              </a>
+            </address>
+          </div>
+
+          <!-- FORMULÁRIO DE CONTATO -->
+          <form
+            id="form-contato"
+            class="formulario"
+            novalidate
+            aria-label="Formulário para enviar mensagem a Julio Demarchi"
+          >
+            <!--
+              ▸ TAG <form>
+              O QUE É: Elemento que agrupa controles de entrada de dados
+                para serem enviados (processados por servidor ou JavaScript).
+              ATRIBUTOS:
+                action="url"    → para onde os dados são enviados (backend)
+                method="POST"   → como os dados são enviados
+                                  GET: dados na URL (visível, limitado a ~2000 chars)
+                                  POST: dados no corpo (oculto, sem limite prático)
+                enctype         → encoding dos dados
+                                  "application/x-www-form-urlencoded" (padrão)
+                                  "multipart/form-data" → obrigatório para <input type="file">
+                                  "text/plain" → raramente usado
+
+              ATRIBUTO novalidate:
+                → Desativa a validação NATIVA do browser (tooltip ugly).
+                → Permite validação customizada em JavaScript com UI alinhada ao design.
+                → ATENÇÃO: Com novalidate, você PRECISA validar com JS.
+                  Nunca confiar apenas no frontend — sempre validar no backend também.
+
+              ATRIBUTO aria-label:
+                → Nomeia o formulário para screen readers.
+                → Especialmente importante quando há múltiplos forms na página.
+                → Alternativa: aria-labelledby referenciando um <h2>.
+            -->
+
+            <div class="campo-grupo">
+              <label for="campo-nome" class="campo-label">
+                Nome completo
+                <span class="campo-obrigatorio" aria-label="campo obrigatório">*</span>
+              </label>
+              <!--
+                ▸ TAG <label>
+                O QUE É: Rótulo descritivo para um controle de formulário.
+                MÉTODO DE ASSOCIAÇÃO 1 — for/id (explícito):
+                  <label for="campo-nome"> se vincula a <input id="campo-nome">
+                  Este é o método RECOMENDADO — mais explícito e robusto.
+                MÉTODO DE ASSOCIAÇÃO 2 — aninhamento (implícito):
+                  <label>Nome <input type="text"></label>
+                  Funciona mas é menos claro.
+
+                BENEFÍCIOS DO <label>:
+                  1. ACESSIBILIDADE: Screen readers anunciam o label ao focar o input.
+                     Sem label, lê apenas "campo de texto" — inútil para o usuário.
+                  2. UX: Clicar no label foca o input correspondente.
+                     Área clicável maior — ótimo para mobile e deficiências motoras.
+
+                NUNCA: Usar placeholder como substituto do label.
+                  Placeholder desaparece ao digitar — o usuário esquece o campo.
+                  Não é lido consistentemente por screen readers.
+                  Contraste geralmente baixo (falha WCAG 1.4.3).
+
+                CAMPO OBRIGATÓRIO: O * é convenção visual.
+                  aria-label="campo obrigatório" no <span> garante que
+                  screen readers entendam o símbolo.
+                  aria-required="true" no input confirma a obrigatoriedade.
+              -->
+
+              <input
+                type="text"
+                id="campo-nome"
+                name="nome"
+                class="campo-input"
+                placeholder="Ex: Julio Cesar Demarchi Junior"
+                autocomplete="name"
+                required
+                aria-required="true"
+                aria-describedby="nome-erro"
+                minlength="2"
+                maxlength="100"
+              >
+              <!--
+                ▸ TAG <input> — ATRIBUTOS DETALHADOS
+
+                type="text" — TIPOS DE INPUT:
+                  text       → texto livre (padrão)
+                  email      → valida formato email, teclado com @ no mobile
+                  password   → oculta os caracteres digitados
+                  number     → teclado numérico, min/max/step
+                  tel        → teclado telefônico no mobile
+                  url        → valida formato URL
+                  date       → seletor de data nativo do browser
+                  time       → seletor de hora
+                  checkbox   → caixa de seleção (true/false)
+                  radio      → opção única de um grupo
+                  file       → upload de arquivo
+                  range      → slider (deslizante)
+                  color      → seletor de cor
+                  hidden     → campo invisível (dados enviados mas não mostrados)
+                  submit     → botão de envio (use <button type="submit"> em vez disso)
+                  search     → campo de busca (pode ter X para limpar)
+
+                id="campo-nome":
+                  → Vincula ao <label for="campo-nome">.
+                  → Deve ser ÚNICO em toda a página.
+                  → Usado como âncora JavaScript (document.getElementById).
+
+                name="nome":
+                  → Chave dos dados enviados no formulário.
+                  → Sem name, o campo NÃO É enviado.
+                  → No backend: req.body.nome (Node.js) ou $_POST['nome'] (PHP).
+
+                autocomplete="name":
+                  → Permite autopreenchimento pelo navegador.
+                  → WCAG 1.3.5: Obrigatório para campos de dados pessoais.
+                  → Valores: "name", "email", "tel", "street-address", etc.
+                  → Beneficia especialmente usuários com dificuldades motoras.
+
+                required:
+                  → Atributo booleano — campo obrigatório.
+                  → Validação nativa (desativada pelo novalidate do form).
+                  → Semântico — comunica obrigatoriedade ao DOM.
+
+                aria-required="true":
+                  → Confirma obrigatoriedade para assistive technologies.
+                  → Redundante com required, mas garante compatibilidade máxima.
+
+                aria-describedby="nome-erro":
+                  → Associa o input à mensagem de erro com id="nome-erro".
+                  → Quando o campo tem erro, o screen reader lê o input
+                    E a mensagem de erro automaticamente.
+                  → CRÍTICO para acessibilidade em formulários com validação.
+
+                minlength="2" / maxlength="100":
+                  → Validação de comprimento mínimo/máximo.
+                  → maxlength também previne digitação excessiva.
+                  → Validar novamente no backend — o usuário pode burlar HTML.
+              -->
+
+              <span id="nome-erro" class="campo-erro" role="alert" aria-live="assertive" hidden>
+                <!--
+                  ▸ Mensagem de erro acessível
+                  id="nome-erro": Referenciado por aria-describedby do input.
+                  role="alert":
+                    → Torna o elemento uma "live region" de alerta.
+                    → Screen readers anunciam mudanças imediatamente,
+                      mesmo sem foco no elemento.
+                  aria-live="assertive":
+                    → Interrompe o que o screen reader estava lendo para
+                      anunciar o erro imediatamente.
+                    → Use com parcimônia — interrupções frequentes são ruins.
+                  hidden:
+                    → Atributo booleano — oculta o elemento visualmente E
+                      da árvore de acessibilidade.
+                    → JavaScript remove o atributo ao mostrar o erro.
+                    → DIFERENÇA de display:none (CSS): hidden é HTML nativo
+                      e funciona mesmo sem CSS carregado.
+                -->
+                Por favor, informe seu nome completo (mínimo 2 caracteres).
+              </span>
+            </div>
+
+            <div class="campo-grupo">
+              <label for="campo-email" class="campo-label">
+                Email
+                <span class="campo-obrigatorio" aria-label="campo obrigatório">*</span>
+              </label>
+              <input
+                type="email"
+                id="campo-email"
+                name="email"
+                class="campo-input"
+                placeholder="seu@email.com"
+                autocomplete="email"
+                required
+                aria-required="true"
+                aria-describedby="email-erro"
+              >
+              <!--
+                ▸ type="email"
+                VALIDAÇÃO NATIVA: Verifica que contém @ e um domínio válido.
+                MOBILE: Abre teclado com @, .com visíveis.
+                ATENÇÃO: A validação nativa é básica — não verifica se o
+                  email existe. Validação real exige envio de email de confirmação.
+              -->
+              <span id="email-erro" class="campo-erro" role="alert" aria-live="assertive" hidden>
+                Por favor, informe um endereço de email válido.
+              </span>
+            </div>
+
+            <div class="campo-grupo">
+              <label for="campo-assunto" class="campo-label">Assunto</label>
+              <select
+                id="campo-assunto"
+                name="assunto"
+                class="campo-input campo-select"
+                aria-describedby="assunto-hint"
+              >
+                <!--
+                  ▸ TAG <select>
+                  O QUE É: Menu dropdown de opções predefinidas.
+                  QUANDO USAR: 5+ opções, espaço limitado, dados controlados.
+                  QUANDO NÃO USAR: 2-4 opções → use <input type="radio">.
+                  ATRIBUTOS:
+                    multiple  → permite selecionar múltiplas opções
+                    size="3"  → exibe 3 opções visíveis (sem dropdown)
+                  ASSOCIAÇÃO: <label for="campo-assunto"> vincula ao id.
+                -->
+                <option value="" disabled selected>Selecione um assunto...</option>
+                <!--
+                  ▸ TAG <option>
+                  O QUE É: Opção individual no <select>.
+                  ATRIBUTO value: Valor enviado no formulário.
+                    Se omitido, o texto do option é o valor.
+                  disabled: Opção não pode ser selecionada.
+                  selected: Pré-selecionada (padrão exibido).
+                  Combinação disabled+selected: Cria um "placeholder"
+                    que aparece inicialmente mas não pode ser (re)selecionado.
+                -->
+                <option value="oportunidade">Oportunidade de Trabalho</option>
+                <option value="freelance">Projeto Freelance</option>
+                <option value="colaboracao">Colaboração / Open Source</option>
+                <option value="duvida">Dúvida Técnica</option>
+                <option value="outro">Outro</option>
+              </select>
+              <span id="assunto-hint" class="campo-hint">
+                <i class="fas fa-info-circle" aria-hidden="true"></i>
+                Opcional — me ajuda a priorizar respostas.
+              </span>
+              <!--
+                ▸ Texto de hint (dica)
+                id="assunto-hint" → referenciado por aria-describedby.
+                Screen readers leem: "Assunto, combo box, Selecione um
+                assunto... — Opcional — me ajuda a priorizar respostas."
+                A dica é lida automaticamente ao focar o campo.
+              -->
+            </div>
+
+            <div class="campo-grupo">
+              <label for="campo-mensagem" class="campo-label">
+                Mensagem
+                <span class="campo-obrigatorio" aria-label="campo obrigatório">*</span>
+              </label>
+              <textarea
+                id="campo-mensagem"
+                name="mensagem"
+                class="campo-input campo-textarea"
+                placeholder="Escreva sua mensagem aqui..."
+                required
+                aria-required="true"
+                aria-describedby="mensagem-erro mensagem-contador"
+                rows="5"
+                minlength="20"
+                maxlength="1000"
+              ></textarea>
+              <!--
+                ▸ TAG <textarea>
+                O QUE É: Campo de texto MULTILINHA — para conteúdo extenso.
+                DIFERENÇA de <input type="text">: Permite quebras de linha,
+                  redimensionável pelo usuário.
+                ATRIBUTO rows="5": Altura inicial em linhas de texto.
+                  Não limita o conteúdo — usuário pode digitar mais.
+                ATRIBUTO cols: Largura em caracteres (raramente usado — use CSS width).
+                CSS resize: "none" → sem redimensionamento (bloqueia UX).
+                           "vertical" → apenas vertical (recomendado).
+                           "both" → livre (pode quebrar layouts).
+                IMPORTANTE: Tag de fechamento </textarea> é OBRIGATÓRIO.
+                  Conteúdo padrão vai entre as tags (não no atributo value).
+                  Deixar espaço entre as tags insere espaço no textarea!
+
+                aria-describedby="mensagem-erro mensagem-contador":
+                  → Múltiplos ids separados por espaço.
+                  → Screen reader lê AMBAS as descrições ao focar.
+                  → Erro + contador de caracteres são lidos juntos.
+              -->
+              <div class="campo-rodape">
+                <span id="mensagem-erro" class="campo-erro" role="alert" aria-live="assertive" hidden>
+                  A mensagem deve ter pelo menos 20 caracteres.
+                </span>
+                <span id="mensagem-contador" class="campo-contador" aria-live="polite">
+                  0 / 1000
+                </span>
+                <!--
+                  aria-live="polite" no contador:
+                  Anuncia a contagem de caracteres de forma suave
+                  (não interrompe o leitor) quando o valor muda.
+                  Screen reader anuncia a cada X caracteres digitados.
+                -->
+              </div>
+            </div>
+
+            <!-- CHECKBOX de consentimento -->
+            <div class="campo-grupo campo-grupo-checkbox">
+              <input
+                type="checkbox"
+                id="aceitar-termos"
+                name="aceitar-termos"
+                required
+                aria-required="true"
+                aria-describedby="termos-erro"
+              >
+              <!--
+                ▸ <input type="checkbox">
+                O QUE É: Caixa de marcação — toggle boolean (marcado/desmarcado).
+                VALOR ENVIADO: O atributo value define o valor ao enviar
+                  (padrão: "on"). Se desmarcado, o campo NÃO É enviado.
+                ASSOCIAÇÃO com label: Mesmas regras — for/id ou aninhamento.
+                ESTADO: Atributo "checked" para pré-marcado.
+                INDETERMINADO: Apenas via JavaScript (checkbox.indeterminate = true)
+                  para estados "alguns selecionados" em listas.
+              -->
+              <label for="aceitar-termos" class="campo-label-checkbox">
+                Li e aceito o uso das minhas informações para fins de contato.
+                <span class="campo-obrigatorio" aria-label="campo obrigatório">*</span>
+              </label>
+              <span id="termos-erro" class="campo-erro" role="alert" aria-live="assertive" hidden>
+                Você precisa aceitar os termos para enviar a mensagem.
+              </span>
+            </div>
+
+            <!-- BOTÃO DE ENVIO -->
+            <button
+              type="submit"
+              id="btn-enviar"
+              class="btn btn-primario btn-formulario"
+              aria-describedby="form-status"
+            >
+              <span class="btn-texto">
+                Enviar mensagem
+                <i class="fas fa-paper-plane btn-icone-right" aria-hidden="true"></i>
+              </span>
+              <span class="btn-loading" hidden aria-hidden="true">
+                <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                Enviando...
+              </span>
+            </button>
+            <!--
+              ▸ <button type="submit">
+              O QUE É: Botão que submete o formulário ao clicar ou
+                pressionar Enter dentro do form.
+              TIPOS:
+                type="submit" → envia o formulário (padrão dentro de <form>)
+                type="button" → não envia — apenas dispara JS onclick
+                type="reset"  → limpa todos os campos (raramente desejável)
+              REGRA: Sempre especificar type — sem ele, comportamento pode
+                variar entre navegadores.
+              aria-describedby="form-status": Após submissão, o status
+                (sucesso ou erro) é anunciado ao screen reader.
+
+              PADRÃO DE LOADING ACESSÍVEL:
+                - Texto normal oculto quando carregando (hidden)
+                - Texto de loading mostrado durante a requisição
+                - aria-hidden="true" no spinner (visual, sem semântica)
+                - disabled no botão para evitar duplo envio
+            -->
+
+            <div
+              id="form-status"
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+              class="form-feedback"
+              hidden
+            >
+              <!--
+                ▸ Região de status do formulário
+                role="status": Live region de baixa prioridade.
+                aria-live="polite": Anuncia após ação atual.
+                aria-atomic="true": Anuncia o conteúdo INTEIRO quando muda
+                  (não apenas as partes alteradas).
+                CONTEÚDO DINÂMICO: JavaScript insere texto aqui
+                  (sucesso ou erro) após a submissão.
+                Screen reader anuncia automaticamente sem o usuário
+                precisar navegar até o elemento.
+              -->
+            </div>
+
+          </form>
+          <!-- FIM: form#form-contato -->
+
+        </div>
+      </div>
+    </section>
+    <!-- FIM: section#contato ─────────────── -->
+
+
+  </main>
+  <!-- FIM: <main> ─────────────────────────── -->
+
+
+  <!-- ════════════════════════════════════════════════
+       FOOTER — RODAPÉ GLOBAL DO SITE
+       ════════════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <!--
+      ▸ TAG <footer>
+      O QUE É: Rodapé do documento ou de uma seção.
+      CONTEÚDO TÍPICO: Copyright, links de rodapé, informações do autor,
+        navegação secundária, links legais, contato.
+      MÚLTIPLOS <footer>: Válido dentro de <article> e <section>
+        (rodapé daquele contexto específico).
+      ATRIBUTO role="contentinfo":
+        → Landmark ARIA do rodapé principal do site.
+        → Permite que screen readers naveguem diretamente para o rodapé.
+        → Implícito em <footer> fora de section/article, mas declarar
+          explicitamente garante compatibilidade máxima.
+    -->
+
+    <div class="container">
+      <div class="footer-inner">
+
+        <div class="footer-logo">
+          <a href="#topo" class="logo" aria-label="Voltar ao topo da página">
+            JCDJ<span aria-hidden="true">.</span>
+          </a>
+          <p class="footer-slogan">
+            Construindo a web, um elemento semântico por vez.
+          </p>
+        </div>
+
+        <nav aria-label="Navegação do rodapé">
+          <!--
+            ▸ Segunda <nav> — Footer Navigation
+            DIFERENÇA da nav principal: aria-label diferente.
+            Screen reader anuncia "navegação do rodapé" — o usuário
+            distingue das duas navegações da página.
+          -->
+          <ul class="footer-nav" role="list">
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#projetos">Projetos</a></li>
+            <li><a href="#contato">Contato</a></li>
+            <li>
+              <a href="assets/cv-julio-demarchi.pdf"
+                 download
+                 aria-label="Baixar currículo em PDF">
+                Currículo
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="footer-social">
+          <p class="footer-social-titulo" id="social-label">Redes sociais</p>
+          <ul class="social-lista" role="list" aria-labelledby="social-label">
+            <!--
+              ▸ aria-labelledby="social-label"
+              Associa a lista ao texto "Redes sociais" como seu rótulo.
+              Screen reader anuncia "lista — Redes sociais — 3 itens".
+            -->
+            <li>
+              <a href="https://github.com/julio-demarchi"
+                 class="social-link"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 aria-label="GitHub de Julio Demarchi (abre em nova aba)">
+                <i class="fab fa-github" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a href="https://linkedin.com/in/julio-demarchi"
+                 class="social-link"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 aria-label="LinkedIn de Julio Demarchi (abre em nova aba)">
+                <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:julio.demarchi@email.com"
+                 class="social-link"
+                 aria-label="Enviar email para Julio Demarchi">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">
+          &copy;
+          <!--
+            ▸ ENTIDADE &copy;
+            O QUE É: Símbolo de copyright ©.
+            EQUIVALENTE: &#169; (referência numérica decimal)
+            OUTROS: &reg; (®), &trade; (™), &deg; (°), &mdash; (—)
+          -->
+          <time datetime="2024">2024</time>
+          Julio Cesar Demarchi Junior. Todos os direitos reservados.
+        </p>
+        <p class="footer-made">
+          Feito com
+          <abbr title="HyperText Markup Language versão 5">HTML5</abbr>,
+          <!--
+            ▸ TAG <abbr>
+            O QUE É: Representa uma abreviação ou sigla.
+            ATRIBUTO title: Expansão completa da abreviação.
+            RENDERIZAÇÃO: Geralmente com underline pontilhado — mouseover mostra title.
+            SCREEN READER: Pode ler a expansão ou a abreviação dependendo da configuração.
+            EXEMPLOS: CSS, JS, API, REST, CRUD, SQL, HTTP
+          -->
+          <abbr title="Cascading Style Sheets versão 3">CSS3</abbr> e
+          <abbr title="JavaScript">JS</abbr> puro.
+        </p>
+      </div>
+
+    </div>
+  </footer>
+  <!-- FIM: <footer> ─────────────────────────── -->
+
+
+  <!-- ════════════════════════════════════════
+       JAVASCRIPT — No final do body
+       ════════════════════════════════════════ -->
+  <script src="js/main.js"></script>
+  <!--
+    ▸ TAG <script src="..."> EXTERNO
+    POSIÇÃO: No final do <body> — antes do </body>.
+    POR QUE NO FINAL:
+      O browser lê HTML de cima para baixo. Script no <head>
+      BLOQUEIA a renderização enquanto o arquivo JS é baixado
+      e executado. No final do body, o HTML já foi renderizado
+      e todos os elementos existem no DOM (Document Object Model).
+    ALTERNATIVA MODERNA: <script defer> no <head>
+      → defer: baixa em paralelo, executa DEPOIS do HTML parseado.
+      → async: baixa em paralelo, executa IMEDIATAMENTE ao baixar
+               (ordem não garantida — evitar para scripts dependentes).
+    POR QUE EXTERNO (e não <script> inline):
+      1. CACHE: Browser guarda o arquivo — não rebaixa em outras páginas.
+      2. SEPARAÇÃO: HTML = estrutura; JS = comportamento.
+      3. MANUTENÇÃO: Lógica centralizada em um arquivo.
+      4. CSP: Content Security Policy pode bloquear scripts inline.
+  -->
+
+</body>
+<!--
+  FIM DO BODY
+  ════════════════════════════════════════════════════════
+  CHECKLIST FINAL DE QUALIDADE — HTML SEMÂNTICO:
+  ════════════════════════════════════════════════════════
+
+  ✅ ESTRUTURA:
+     □ <!DOCTYPE html> na primeira linha
+     □ <html lang="pt-BR"> com idioma
+     □ <head> com charset UTF-8 como primeira meta
+     □ <meta viewport> para responsividade
+     □ <title> único e descritivo
+     □ <meta description> entre 150-160 chars
+
+  ✅ SEMÂNTICA:
+     □ Apenas um <h1> por página
+     □ Hierarquia de headings sem saltos (h1→h2→h3)
+     □ <header> para cabeçalhos (site e seções)
+     □ <nav> com aria-label para navegações
+     □ <main> único, sem outros elementos do site
+     □ <section> com heading obrigatório
+     □ <article> para conteúdo independente
+     □ <footer> com role="contentinfo"
+     □ <address> para informações de contato
+     □ <time datetime="..."> para datas
+     □ <abbr title="..."> para abreviações
+     □ <strong>/<em> com significado, não apenas visual
+     □ <ol> para listas ordenadas (cronologia)
+     □ <dl>/<dt>/<dd> para pares chave-valor
+     □ <table> apenas para dados tabulares
+     □ <caption>, <thead>, <tbody>, <tfoot> em tabelas
+     □ <th scope="col/row"> em cabeçalhos de tabela
+
+  ✅ FORMULÁRIOS:
+     □ <label for="id"> para todo input
+     □ Nunca placeholder como substituto de label
+     □ type="email/tel/url" nos inputs corretos
+     □ autocomplete nos campos de dados pessoais
+     □ required + aria-required="true"
+     □ aria-describedby para mensagens de erro
+     □ role="alert" + aria-live em erros
+     □ <button type="submit/button"> explícito
+
+  ✅ ACESSIBILIDADE:
+     □ alt descritivo em toda imagem informativa
+     □ alt="" em imagens decorativas
+     □ aria-label em ícones funcionais
+     □ aria-hidden="true" em elementos decorativos
+     □ aria-label distinto em múltiplas <nav>
+     □ aria-labelledby associando seções aos títulos
+     □ role="list" em listas com list-style:none
+     □ target="_blank" sempre com rel="noopener noreferrer"
+     □ aria-label descritivo em links externos
+     □ Nunca remover :focus sem alternativa visual
+     □ Testar navegação completa por teclado
+
+  ✅ PERFORMANCE:
+     □ width e height em todas as imagens (evita CLS)
+     □ loading="lazy" em imagens abaixo do fold
+     □ loading="eager" em imagem do hero
+     □ <link rel="preconnect"> para fonts externas
+     □ CSS externo no <head>
+     □ JS externo no final do <body> ou com defer
+
+  ✅ SEGURANÇA:
+     □ rel="noopener noreferrer" com target="_blank"
+     □ integrity + crossorigin em recursos CDN (SRI)
+     □ Validação sempre no backend (nunca confiar no HTML)
+-->
+</html>
