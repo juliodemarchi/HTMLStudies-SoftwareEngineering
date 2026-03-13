@@ -1,0 +1,27 @@
+<?php
+// Configurações de Conexão
+$host = 'localhost';
+$db   = 'nome_do_banco';
+$user = 'usuario';
+$pass = 'senha';
+$port = '5432'; // Porta padrão do PostgreSQL
+
+$dsn = "pgsql:host=$host;port=$port;dbname=$db";
+
+$options = [
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, // Transforma erros em Exceções
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,       // Retorna dados como array associativo
+    PDO::ATTR_EMULATE_PREPARES   => false,                  // Usa a preparação real do banco
+];
+
+try {
+     $pdo = new PDO($dsn, $user, $pass, $options);
+     
+     // Exemplo de Inserção Segura
+     $stmt = $pdo->prepare("INSERT INTO usuarios (nome, email) VALUES (?, ?)");
+     $stmt->execute(['João', 'joao@empresa.com.br']);
+
+} catch (\PDOException $e) {
+     // Em produção, salve $e->getMessage() em um log e não mostre ao usuário
+     die("Erro na conexão: " . $e->getMessage());
+}
